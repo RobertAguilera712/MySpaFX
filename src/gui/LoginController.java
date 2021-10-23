@@ -9,15 +9,19 @@ import gui.Alerts.AlertContainer;
 import gui.Alerts.AlertContent;
 import gui.Alerts.AlertIcon;
 import gui.Alerts.AlertTitle;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 public class LoginController implements Initializable {
 
@@ -30,6 +34,10 @@ public class LoginController implements Initializable {
 	@FXML
 	private JFXButton btnLogin;
 
+	private Stage stage;
+	private Scene scene;
+	private Parent root;
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
@@ -38,10 +46,35 @@ public class LoginController implements Initializable {
 	@FXML
 	private void login(ActionEvent event) {
 
-		String errorMessage = Validar.validarCamposTexto(txtUsuario, txtPassword);
+		String errorMessage = Check.checkTextInputs(txtUsuario, txtPassword);
 
 		if (errorMessage.isEmpty()) {
-			System.out.println(errorMessage);
+
+			if (checkCredentials()) {
+				// Go to the dashboard
+				try {
+					FXMLLoader loader = new FXMLLoader(getClass().getResource("Productos.fxml"));
+					root = loader.load();
+					stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+					scene = new Scene(root);
+					stage.setScene(scene);
+					stage.setMaximized(true);
+					stage.show();
+				} catch (IOException ex) {
+					Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
+				}
+
+			} else {
+				JFXAlert<Void> alert = new JFXAlert<>(((Node) event.getTarget()).getScene().getWindow());
+				alert.setOverlayClose(false);
+				AlertContainer container = new AlertContainer(new AlertIcon("error", "bg-danger"), new AlertTitle("Datos de inicio de sesión incorrectos"), new AlertContent("El nombre de usuario o la contraseña no son correctos. Por favor intenta de nuevo"), new AlertBtnContainer());
+				alert.setContent(container);
+				container.getBtnContainer().getConfirmactionButton().setOnAction(event1 -> {
+					alert.close();
+				});
+				alert.showAndWait();
+
+			}
 
 		} else {
 			// New alert is created
@@ -61,6 +94,13 @@ public class LoginController implements Initializable {
 			alert.showAndWait();
 		}
 
+	}
+
+	private boolean checkCredentials() {
+		String username = txtUsuario.getText();
+		String password = txtPassword.getText();
+
+		return username.equals("admin") && password.equals("admin");
 	}
 
 }
