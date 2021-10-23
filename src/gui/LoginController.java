@@ -31,9 +31,6 @@ public class LoginController implements Initializable {
 	@FXML
 	private JFXPasswordField txtPassword;
 
-	@FXML
-	private JFXButton btnLogin;
-
 	private Stage stage;
 	private Scene scene;
 	private Parent root;
