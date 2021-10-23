@@ -22,6 +22,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class LoginController implements Initializable {
 
@@ -31,9 +32,6 @@ public class LoginController implements Initializable {
 	@FXML
 	private JFXPasswordField txtPassword;
 
-	private Stage stage;
-	private Scene scene;
-	private Parent root;
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -50,13 +48,16 @@ public class LoginController implements Initializable {
 			if (checkCredentials()) {
 				// Go to the dashboard
 				try {
-					FXMLLoader loader = new FXMLLoader(getClass().getResource("Productos.fxml"));
-					root = loader.load();
-					stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-					scene = new Scene(root);
-					stage.setScene(scene);
-					stage.setMaximized(true);
-					stage.show();
+					Parent newWindow = FXMLLoader.load(getClass().getResource("Productos.fxml"));
+					Scene currentWindow = ((Node)event.getTarget()).getScene();
+					currentWindow.setRoot(newWindow);
+					/*FXMLLoader loader = new FXMLLoader(getClass().getResource("Productos.fxml"));
+					Parent root = loader.load();
+					Window currentWindow = ((Node) event.getSource()).getScene().getWindow();
+					Stage stage = (Stage) (currentWindow);
+					Scene newScene = new Scene(root, currentWindow.getWidth(), currentWindow.getHeight());
+					stage.setScene(newScene);
+					stage.show();*/
 				} catch (IOException ex) {
 					Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
 				}
