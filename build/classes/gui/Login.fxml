@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="432.0" prefWidth="762.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.LoginController">
+  <columnConstraints>
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+  </columnConstraints>
+  <rowConstraints>
+    <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="149.0" vgrow="SOMETIMES" />
+    <RowConstraints maxHeight="225.0" minHeight="10.0" prefHeight="224.0" vgrow="SOMETIMES" />
+    <RowConstraints fillHeight="false" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+  </rowConstraints>
+   <children>
+      <HBox alignment="CENTER" prefWidth="200.0" GridPane.columnSpan="2">
+         <children>
+            <VBox alignment="TOP_CENTER">
+               <children>
+                  <ImageView fitHeight="100.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@img/MySpaLogo.png" />
+                     </image>
+                  </ImageView>
+                  <Label style="-fx-font-family: Economica; -fx-text-fill: -fx-color-cafe;" styleClass="h1" text="MYSPA" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets top="20.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="1">
+         <children>
+            <VBox alignment="TOP_CENTER" spacing="20.0">
+               <children>
+                  <Label styleClass="h1" text="Ingresa" />
+                  <JFXTextField fx:id="txtUsuario" promptText="Nombre de usuario" styleClass="input" />
+                  <JFXPasswordField fx:id="txtPassword" promptText="Contraseña" styleClass="input" />
+                  <JFXButton onAction="#login" prefHeight="36.0" prefWidth="212.0" text="Entrar">
+                     <styleClass>
+                        <String fx:value="btn" />
+                        <String fx:value="bg-olive" />
+                        <String fx:value="text-white" />
+                     </styleClass>
+                  </JFXButton>
+               </children>
+            </VBox>
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnSpan="2" GridPane.rowIndex="2">
+         <children>
+            <Label style="-fx-font-size: 12;" styleClass="text-muted" text="© Cloudy Mind 2021" />
+         </children>
+      </HBox>
+   </children>
+   <stylesheets>
+      <URL value="@styles/icons.css" />
+      <URL value="@styles/styles.css" />
+   </stylesheets>
+</GridPane>
