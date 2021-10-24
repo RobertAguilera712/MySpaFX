@@ -1,7 +1,6 @@
 package gui;
 
 import com.jfoenix.controls.JFXAlert;
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import gui.Alerts.AlertBtnContainer;
@@ -21,8 +20,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.stage.Window;
 
 public class LoginController implements Initializable {
 
@@ -43,6 +40,7 @@ public class LoginController implements Initializable {
 
 		String errorMessage = Check.checkTextInputs(txtUsuario, txtPassword);
 
+		// If message is empty that means that field were filled
 		if (errorMessage.isEmpty()) {
 
 			if (checkCredentials()) {

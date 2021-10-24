@@ -3,7 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/kasparov/NetBeansProjects/MySpaFX/src/gui/LoginController.java</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/Check.java</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/Alerts/AlertButton.java</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/ProductosController.java</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/Alerts/AlertIcon.java</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/styles/icons.css</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/Alerts/AlertTitle.java</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/Alerts/AlertContent.java</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/Alerts/AlertBtnContainer.java</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/LoginController.java</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/styles/styles.css</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/gui/Alerts/AlertContainer.java</file>
+            <file>file:/home/kasparov/Downloads/MySpaFX-main/src/model/Producto.java</file>
         </group>
     </open-files>
 </project-private>

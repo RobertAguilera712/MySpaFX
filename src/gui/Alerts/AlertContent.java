@@ -36,6 +36,7 @@ public class AlertContent extends HBox {
 	 * @param label Laber to be set as child of this object
 	 */
 	public AlertContent(Label label){
+		super();
 		this.label = label;
 		this.getChildren().add(this.label);
 	}

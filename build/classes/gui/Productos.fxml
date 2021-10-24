@@ -35,7 +35,7 @@
       <RowConstraints />
   </rowConstraints>
    <children>
-      <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="432.0" prefWidth="95.0" spacing="20.0" styleClass="bg-olive" GridPane.rowSpan="3">
+      <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="432.0" prefWidth="95.0" spacing="20.0" styleClass="bg-olive" GridPane.rowSpan="2">
          <GridPane.margin>
             <Insets />
          </GridPane.margin>
@@ -116,7 +116,7 @@
             </HBox>
             <HBox layoutX="10.0" layoutY="165.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
                <children>
-                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
+                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="active" visible="false" width="5.0" />
                   <Label maxHeight="20.0" maxWidth="20.0">
                      <styleClass>
                         <String fx:value="icon" />
@@ -218,7 +218,7 @@
          <content>
             <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="716.0" spacing="20.0">
                <children>
-                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" prefWidth="500.0">
+                  <HBox alignment="CENTER" maxHeight="1.7976931348623157E308">
                      <children>
                         <Label styleClass="h1" text="Productos" />
                      </children>
