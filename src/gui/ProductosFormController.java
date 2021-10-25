@@ -20,7 +20,7 @@ import javafx.scene.layout.ColumnConstraints;
 import model.Estatus;
 import model.Producto;
 
-public class ProductosController implements Initializable {
+public class ProductosFormController implements Initializable {
 
 	@FXML
 	private ColumnConstraints dashboard;
@@ -31,14 +31,6 @@ public class ProductosController implements Initializable {
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-/*		productID.setCellValueFactory(new PropertyValueFactory<>("id"));
-		productName.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-		productBrand.setCellValueFactory(new PropertyValueFactory<>("marca"));
-		productPrice.setCellValueFactory(new PropertyValueFactory<>("precioUso"));
-		productStatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
-
-		tabla.getItems().add(new Producto(1, Estatus.ACTIVO, "Crema", "hands", 200));
-		tabla.getItems().add(new Producto(2, Estatus.ACTIVO, "Perfume", "CR7", 500));*/
 
 	}
 
@@ -56,13 +48,13 @@ public class ProductosController implements Initializable {
 	}
 
 	@FXML
-	private void agregar(ActionEvent event) {
+	private void regresar(ActionEvent event) {
 		try {
-			Parent newWindow = FXMLLoader.load(getClass().getResource("ProductosForm.fxml"));
+			Parent newWindow = FXMLLoader.load(getClass().getResource("Productos.fxml"));
 			Scene currentWindow = ((Node) event.getTarget()).getScene();
 			currentWindow.setRoot(newWindow);
 		} catch (IOException ex) {
-			Logger.getLogger(ProductosController.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ProductosFormController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
