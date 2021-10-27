@@ -111,6 +111,7 @@
 .btn{
 	-jfx-button-type: FLAT;
 	-fx-border-radius: 4px;
+	-fx-cursor: hand;
 }
 
 .btn-success{
@@ -196,4 +197,8 @@
 
 .alert-icon{
 	-fx-font-size: 80px;
+}
+
+.date-picker{
+	-jfx-default-color: #0d6efd; 
 }

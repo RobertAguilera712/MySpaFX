@@ -11,7 +11,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 
-public class ProductosFormController implements Initializable {
+public class TratamientosFormController implements Initializable {
 
 
 
@@ -24,7 +24,7 @@ public class ProductosFormController implements Initializable {
 	private void regresar(ActionEvent event) throws IOException {
 		Scene currentWindow = ((Node) event.getTarget()).getScene();
 		ScrollPane mainContainer = (ScrollPane) currentWindow.lookup("#mainContainer");
-		Node nodo = FXMLLoader.load(getClass().getResource("Productos.fxml"));
+		Node nodo = FXMLLoader.load(getClass().getResource("Tratamientos.fxml"));
 		mainContainer.setContent(nodo);
 	}
 

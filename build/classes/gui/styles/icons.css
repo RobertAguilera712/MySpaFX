@@ -5,6 +5,7 @@
 	-fx-pref-width: 1em;
 	-fx-pref-height: 1em;
 	-fx-font-size: 20px;
+	-fx-cursor: hand;
 }
 
 .spa{
