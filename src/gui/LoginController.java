@@ -46,7 +46,7 @@ public class LoginController implements Initializable {
 			if (checkCredentials()) {
 				// Go to the dashboard
 				try {
-					Parent newWindow = FXMLLoader.load(getClass().getResource("Productos.fxml"));
+					Parent newWindow = FXMLLoader.load(getClass().getResource("Dashboard.fxml"));
 					Scene currentWindow = ((Node)event.getTarget()).getScene();
 					currentWindow.setRoot(newWindow);
 					/*FXMLLoader loader = new FXMLLoader(getClass().getResource("Productos.fxml"));

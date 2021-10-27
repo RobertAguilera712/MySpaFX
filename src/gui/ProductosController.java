@@ -12,22 +12,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.cell.PropertyValueFactory;
-import javafx.scene.layout.ColumnConstraints;
-import model.Estatus;
-import model.Producto;
+import javafx.scene.layout.HBox;
 
 public class ProductosController implements Initializable {
-
-	@FXML
-	private ColumnConstraints dashboard;
-
-	@FXML
-	private Button btnMenu;
-
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
@@ -43,27 +30,11 @@ public class ProductosController implements Initializable {
 	}
 
 	@FXML
-	private void toggleDashboard() {
-		if (btnMenu.getStyleClass().contains("menu")) {
-			btnMenu.getStyleClass().remove("menu");
-			btnMenu.getStyleClass().add("cerrar-menu");
-			dashboard.setPrefWidth(170);
-		} else if (btnMenu.getStyleClass().contains("cerrar-menu")) {
-			btnMenu.getStyleClass().remove("cerrar-menu");
-			btnMenu.getStyleClass().add("menu");
-			dashboard.setPrefWidth(50);
-		}
-	}
-
-	@FXML
-	private void agregar(ActionEvent event) {
-		try {
-			Parent newWindow = FXMLLoader.load(getClass().getResource("ProductosForm.fxml"));
-			Scene currentWindow = ((Node) event.getTarget()).getScene();
-			currentWindow.setRoot(newWindow);
-		} catch (IOException ex) {
-			Logger.getLogger(ProductosController.class.getName()).log(Level.SEVERE, null, ex);
-		}
+	private void agregar(ActionEvent event) throws IOException {
+		Scene currentWindow = ((Node) event.getTarget()).getScene();
+		HBox mainContainer = (HBox) currentWindow.lookup("#mainContainer");
+		Node nodo = FXMLLoader.load(getClass().getResource("ProductosForm.fxml"));
+		mainContainer.getChildren().setAll(nodo);
 	}
 
 }
