@@ -11,11 +11,11 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductosController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EmpleadosController">
    <children>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308">
          <children>
-            <Label styleClass="h1" text="Productos" />
+            <Label styleClass="h1" text="Empleados" />
          </children>
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" spacing="20.0">
@@ -29,13 +29,20 @@
             </JFXButton>
          </children>
       </HBox>
-      <TableView fx:id="tablaProductos" maxWidth="1.7976931348623157E308">
+      <TableView fx:id="tablaEmpleados" maxWidth="1.7976931348623157E308">
          <columns>
             <TableColumn fx:id="columnId" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="ID" />
-            <TableColumn fx:id="columnNombre" prefWidth="169.0" text="Nombre" />
-            <TableColumn fx:id="columnMarca" prefWidth="112.0" text="Marca" />
-            <TableColumn fx:id="columnPrecio" prefWidth="112.0" text="Precio" />
-            <TableColumn fx:id="columndEstatus" prefWidth="114.0" text="Estatus" />
+            <TableColumn fx:id="columnNombre" prefWidth="79.0" text="Nombre" />
+            <TableColumn fx:id="columnApellido1" prefWidth="148.0" text="Apellido paterno" />
+            <TableColumn fx:id="columnApellido2" prefWidth="155.0" text="Apellido materno" />
+            <TableColumn fx:id="columnGenero" prefWidth="125.0" text="Genero" />
+            <TableColumn fx:id="columnRFC" prefWidth="135.0" text="RFC" />
+            <TableColumn fx:id="columnTelefono" prefWidth="135.0" text="Telefono" />
+            <TableColumn fx:id="columnDomicilio" prefWidth="135.0" text="Domicilio" />
+            <TableColumn fx:id="columnPuesto" prefWidth="135.0" text="Puesto" />
+            <TableColumn fx:id="columnRutaImg" prefWidth="135.0" text="Ruta foto" />
+            <TableColumn fx:id="columnUsuario" prefWidth="135.0" text="Usuario" />
+            <TableColumn fx:id="columnPassword" prefWidth="135.0" text="Contraseña" />
             <TableColumn fx:id="columnAcciones" prefWidth="135.0" text="Acciones" />
          </columns>
          <columnResizePolicy>

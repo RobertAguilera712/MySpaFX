@@ -1,13 +1,10 @@
 package gui;
 
-import com.jfoenix.controls.JFXAlert;
+import utils.Check;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
-import gui.Alerts.AlertBtnContainer;
-import gui.Alerts.AlertContainer;
-import gui.Alerts.AlertContent;
 import gui.Alerts.AlertIcon;
-import gui.Alerts.AlertTitle;
+import gui.Alerts.OkAlert;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -20,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import utils.Utils;
 
 public class LoginController implements Initializable {
 
@@ -29,14 +27,13 @@ public class LoginController implements Initializable {
 	@FXML
 	private JFXPasswordField txtPassword;
 
-
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		// TODO
 	}
 
 	@FXML
-	private void login(ActionEvent event) {
+	private void login(ActionEvent event) throws IOException {
 
 		String errorMessage = Check.checkTextInputs(txtUsuario, txtPassword);
 
@@ -47,46 +44,32 @@ public class LoginController implements Initializable {
 				// Go to the dashboard
 				try {
 					Parent newWindow = FXMLLoader.load(getClass().getResource("MainDashboard.fxml"));
-					Scene currentWindow = ((Node)event.getTarget()).getScene();
+					Scene currentWindow = ((Node) event.getTarget()).getScene();
 					currentWindow.setRoot(newWindow);
-					/*FXMLLoader loader = new FXMLLoader(getClass().getResource("Productos.fxml"));
-					Parent root = loader.load();
-					Window currentWindow = ((Node) event.getSource()).getScene().getWindow();
-					Stage stage = (Stage) (currentWindow);
-					Scene newScene = new Scene(root, currentWindow.getWidth(), currentWindow.getHeight());
-					stage.setScene(newScene);
-					stage.show();*/
 				} catch (IOException ex) {
 					Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
 				}
 
 			} else {
-				JFXAlert<Void> alert = new JFXAlert<>(((Node) event.getTarget()).getScene().getWindow());
-				alert.setOverlayClose(false);
-				AlertContainer container = new AlertContainer(new AlertIcon("error", "bg-danger"), new AlertTitle("Datos de inicio de sesión incorrectos"), new AlertContent("El nombre de usuario o la contraseña no son correctos. Por favor intenta de nuevo"), new AlertBtnContainer());
-				alert.setContent(container);
-				container.getBtnContainer().getConfirmactionButton().setOnAction(event1 -> {
-					alert.close();
-				});
+				OkAlert alert = new OkAlert(AlertIcon.ERROR, Utils.getCurrentWindow(event));
+				alert.setTitle("Datos de inicio de sesión incorrectos");
+				alert.setTextContent("El usuario o la contraseña son icorrectos. Por favor vuelve a intentarloo");
 				alert.showAndWait();
+				/*Alert container = new Alert(new AlertIcon("error", "bg-danger"), new AlertTitle("Datos de inicio de sesión incorrectos"), new AlertContent("El nombre de usuario o la contraseña no son correctos. Por favor intenta de nuevo"), new AlertBtnContainer());*/
+//				Alert content = new Alert(AlertIcon.ERROR);
+//				content.setTitle("Hola jaja");
+//				content.setTextContent("hola otra vez");
+//				alert.setContent(content);
+				/*container.getBtnContainer().getConfirmactionButton().setOnAction(event1 -> {
+					alert.close();
+				});*/
 
 			}
 
 		} else {
-			// New alert is created
-			JFXAlert<Void> alert = new JFXAlert<>(((Node) event.getTarget()).getScene().getWindow());
-			// Avoid alert to be closed when user clicks in main window
-			alert.setOverlayClose(false);
-			// Creating the content of the alert. See AlertContainer documentation
-			AlertContainer container = new AlertContainer(new AlertIcon(), new AlertTitle("No has llenado todos los campos"), new AlertContent(errorMessage), new AlertBtnContainer());
-			// asigning the content to the alert
-			alert.setContent(container);
-			// Setting the ok Button action event. 
-			container.getBtnContainer().getConfirmactionButton().setOnAction(event1 -> {
-				// When button is clicked. Close the alert
-				alert.close();
-			});
-			// Show the alert and wait
+			OkAlert alert = new OkAlert(AlertIcon.WARNING, Utils.getCurrentWindow(event));
+			alert.setTitle("No has llenado todos los campos");
+			alert.setTextContent(errorMessage);
 			alert.showAndWait();
 		}
 

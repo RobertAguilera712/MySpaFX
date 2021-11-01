@@ -1,4 +1,4 @@
-package gui;
+package utils;
 
 import javafx.scene.control.TextInputControl;
 

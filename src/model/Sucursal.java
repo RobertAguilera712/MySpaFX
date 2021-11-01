@@ -1,31 +1,32 @@
 package model;
 public class Sucursal {
     private int id;
-    private int estatus;
     private String nombre;
     private String domicilio;
     private double latitud;
     private double longitud;
+    private int estatus;
 
     public Sucursal() {
     }
 
-    public Sucursal(int id, int estatus, String nombre, String domicilio, double latitud, double longitud) {
-        this.id = id;
-        this.estatus = estatus;
-        this.nombre = nombre;
-        this.domicilio = domicilio;
-        this.latitud = latitud;
-        this.longitud = longitud;
-    }
+	public Sucursal(int id, String nombre, String domicilio, double latitud, double longitud, int estatus) {
+		this.id = id;
+		this.nombre = nombre;
+		this.domicilio = domicilio;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.estatus = estatus;
+	}
 
-    public Sucursal(int estatus, String nombre, String domicilio, double latitud, double longitud) {
-        this.estatus = estatus;
-        this.nombre = nombre;
-        this.domicilio = domicilio;
-        this.latitud = latitud;
-        this.longitud = longitud;
-    }
+	public Sucursal(String nombre, String domicilio, double latitud, double longitud, int estatus) {
+		this.nombre = nombre;
+		this.domicilio = domicilio;
+		this.latitud = latitud;
+		this.longitud = longitud;
+		this.estatus = estatus;
+	}
+
 
     public double getLongitud() {
         return longitud;

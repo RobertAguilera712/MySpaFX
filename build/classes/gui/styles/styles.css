@@ -78,6 +78,14 @@
 	-fx-background-color: -fx-color-danger;
 }
 
+.bg-primary{
+	-fx-background-color: -fx-color-primary;
+}
+
+.bg-success{
+	-fx-background-color: -fx-color-success;
+}
+
 .h1{
 	-fx-font-size: 2.2em;
 	-fx-font-weight: 500;

@@ -17,14 +17,14 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" spacing="20.0">
          <children>
-            <JFXTextField promptText="Nombre" styleClass="input" />
-            <JFXTextField layoutX="262.0" layoutY="10.0" promptText="Marca" styleClass="input" />
-            <JFXTextField layoutX="368.0" layoutY="10.0" promptText="Precio" styleClass="input" />
+            <JFXTextField fx:id="txtNombre" promptText="Nombre" styleClass="input" />
+            <JFXTextField fx:id="txtMarca" layoutX="262.0" layoutY="10.0" promptText="Marca" styleClass="input" />
+            <JFXTextField fx:id="txtPrecio" layoutX="368.0" layoutY="10.0" promptText="Precio" styleClass="input" />
          </children>
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="82.0" maxHeight="1.7976931348623157E308" spacing="20.0">
          <children>
-            <JFXButton text="Guardar">
+            <JFXButton onAction="#guardar" text="Guardar">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-primary" />

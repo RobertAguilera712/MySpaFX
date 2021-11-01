@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.EmpleadosFormController">
+   <children>
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308">
+         <children>
+            <Label styleClass="h1" text="Agregar empleado" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" spacing="20.0">
+         <children>
+            <JFXTextField fx:id="txtNombre" promptText="Nombre" styleClass="input" />
+            <JFXTextField fx:id="txtApellido1" layoutX="262.0" layoutY="10.0" promptText="Apellido paterno" styleClass="input" />
+            <JFXTextField fx:id="txtApellido2" layoutX="368.0" layoutY="10.0" promptText="Apellido materno" styleClass="input" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="82.0" maxHeight="1.7976931348623157E308" spacing="20.0">
+         <children>
+            <JFXComboBox fx:id="txtGenero" prefHeight="36.0" prefWidth="215.0" promptText="Género" styleClass="input" />
+            <JFXTextField fx:id="txtRfc" layoutX="262.0" layoutY="10.0" promptText="RFC" styleClass="input" />
+            <JFXTextField fx:id="txtDireccion" layoutX="368.0" layoutY="10.0" promptText="Dirección" styleClass="input" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" spacing="20.0">
+         <children>
+            <JFXTextField fx:id="txtTelefono" layoutX="262.0" layoutY="10.0" promptText="Teléfono" styleClass="input" />
+            <JFXTextField fx:id="txtPuesto" layoutX="368.0" layoutY="10.0" promptText="Puesto" styleClass="input" />
+            <JFXTextField fx:id="txtRutaImg" layoutX="358.0" layoutY="10.0" promptText="Rura imagen" styleClass="input" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" spacing="20.0">
+         <children>
+            <JFXTextField fx:id="txtUsuario" layoutX="262.0" layoutY="10.0" promptText="Usuario" styleClass="input" />
+            <JFXPasswordField fx:id="txtPassword" promptText="Contraseña" styleClass="input" />
+         </children>
+      </HBox>
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="82.0" maxHeight="1.7976931348623157E308" spacing="20.0">
+         <children>
+            <JFXButton onAction="#guardar" text="Guardar">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-primary" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton layoutX="333.0" layoutY="10.0" onAction="#regresar" text="Regresar">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-danger" />
+               </styleClass>
+            </JFXButton>
+         </children>
+      </HBox>
+   </children>
+   <stylesheets>
+      <URL value="@styles/icons.css" />
+      <URL value="@styles/styles.css" />
+   </stylesheets>
+</VBox>
