@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
 <?import java.net.URL?>
@@ -20,7 +21,9 @@
       </HBox>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" spacing="20.0">
          <children>
-            <JFXTextField prefHeight="36.0" prefWidth="316.0" promptText="Buscar" styleClass="input" />
+            <JFXComboBox fx:id="cmbBusqueda" minWidth="200.0" promptText="Buscar por:" styleClass="input" />
+            <JFXTextField fx:id="txtBusqueda" minWidth="200.0" promptText="Buscar" styleClass="input" />
+            <JFXComboBox fx:id="cmbEstatus" layoutX="732.0" layoutY="11.0" minWidth="200.0" promptText="Mostrar Registros:" styleClass="input" />
             <JFXButton onAction="#agregar" text="Agregar">
                <styleClass>
                   <String fx:value="btn" />
@@ -29,25 +32,21 @@
             </JFXButton>
          </children>
       </HBox>
-      <TableView fx:id="tablaEmpleados" maxWidth="1.7976931348623157E308">
+      <TableView fx:id="tablaEmpleados" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <columns>
-            <TableColumn fx:id="columnId" editable="false" maxWidth="55.0" minWidth="55.0" prefWidth="55.0" resizable="false" text="ID" />
-            <TableColumn fx:id="columnNombre" prefWidth="79.0" text="Nombre" />
-            <TableColumn fx:id="columnApellido1" prefWidth="148.0" text="Apellido paterno" />
-            <TableColumn fx:id="columnApellido2" prefWidth="155.0" text="Apellido materno" />
-            <TableColumn fx:id="columnGenero" prefWidth="125.0" text="Genero" />
-            <TableColumn fx:id="columnRFC" prefWidth="135.0" text="RFC" />
-            <TableColumn fx:id="columnTelefono" prefWidth="135.0" text="Telefono" />
-            <TableColumn fx:id="columnDomicilio" prefWidth="135.0" text="Domicilio" />
-            <TableColumn fx:id="columnPuesto" prefWidth="135.0" text="Puesto" />
-            <TableColumn fx:id="columnRutaImg" prefWidth="135.0" text="Ruta foto" />
-            <TableColumn fx:id="columnUsuario" prefWidth="135.0" text="Usuario" />
-            <TableColumn fx:id="columnPassword" prefWidth="135.0" text="Contraseña" />
-            <TableColumn fx:id="columnAcciones" prefWidth="135.0" text="Acciones" />
+            <TableColumn fx:id="columnId" editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="-1.0" resizable="false" text="ID" />
+            <TableColumn fx:id="columnNombre" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Nombre" />
+            <TableColumn fx:id="columnApellido1" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Apellido paterno" />
+            <TableColumn fx:id="columnApellido2" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Apellido materno" />
+            <TableColumn fx:id="columnGenero" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Genero" />
+            <TableColumn fx:id="columnRFC" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="RFC" />
+            <TableColumn fx:id="columnTelefono" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Telefono" />
+            <TableColumn fx:id="columnDomicilio" maxWidth="-1.0" minWidth="300.0" prefWidth="-1.0" resizable="false" text="Domicilio" />
+            <TableColumn fx:id="columnPuesto" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Puesto" />
+            <TableColumn fx:id="columnFoto" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Foto" />
+            <TableColumn fx:id="columnUsuario" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Usuario" />
+            <TableColumn fx:id="columnAcciones" maxWidth="-1.0" minWidth="300.0" prefWidth="-1.0" resizable="false" text="Acciones" />
          </columns>
-         <columnResizePolicy>
-            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
-         </columnResizePolicy>
          <padding>
             <Insets left="20.0" right="20.0" />
          </padding>

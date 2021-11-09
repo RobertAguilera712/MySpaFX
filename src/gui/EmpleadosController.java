@@ -1,5 +1,7 @@
 package gui;
 
+import com.jfoenix.controls.JFXComboBox;
+import com.jfoenix.controls.JFXTextField;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,13 +17,21 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Empleado;
-import model.Persona;
-import model.Producto;
-import model.Usuario;
+import model.Item;
+import rest.Rest;
 import utils.Utils;
 
 public class EmpleadosController implements Initializable {
-	@FXML
+	  @FXML
+    private JFXComboBox<Item> cmbBusqueda;
+
+    @FXML
+    private JFXTextField txtBusqueda;
+
+    @FXML
+    private JFXComboBox<Item> cmbEstatus;
+
+    @FXML
     private TableView<Empleado> tablaEmpleados;
 
     @FXML
@@ -52,19 +62,23 @@ public class EmpleadosController implements Initializable {
     private TableColumn<?, ?> columnPuesto;
 
     @FXML
-    private TableColumn<?, ?> columnRutaImg;
+    private TableColumn<?, ?> columnFoto;
 
     @FXML
     private TableColumn<?, ?> columnUsuario;
-
-    @FXML
-    private TableColumn<?, ?> columnPassword;
 
     @FXML
     private TableColumn<?, ?> columnAcciones;
 
 	private FXMLLoader loader;
 	private EmpleadosFormController formController;
+	private static Item filtrosBusqueda[] = {new Item("ID", "idEmpleado"), new Item("Nombre", "nombre"),
+				new Item("Apellido paterno", "apellidoPaterno"), new Item("Apellido materno", "apellidoMaterno"),
+				new Item("Género", "genero"), new Item("Domicilio", "domicilio"), new Item("Telefono", "telefono"),
+				new Item("RFC", "rfc"), new Item("Número de empleado", "numeroEmpleado"), new Item("Puesto", "puesto"),
+				new Item("Nombre de usuario", "nombreUsuario")};
+
+	private static Item filtrosEstatus[] = {new Item("Activos", "1"), new Item("Inactivos", "0")};
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -77,12 +91,25 @@ public class EmpleadosController implements Initializable {
 		columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
 		columnRFC.setCellValueFactory(new PropertyValueFactory<>("rfc"));
 		columnPuesto.setCellValueFactory(new PropertyValueFactory<>("puesto"));
-		columnRutaImg.setCellValueFactory(new PropertyValueFactory<>("rutaFoto"));
+		columnFoto.setCellValueFactory(new PropertyValueFactory<>("foto"));
 		columnUsuario.setCellValueFactory(new PropertyValueFactory<>("nombreUsu"));
-		columnPassword.setCellValueFactory(new PropertyValueFactory<>("contrasenia"));
 		columnAcciones.setCellValueFactory(new PropertyValueFactory<>("acciones"));
 
-		tablaEmpleados.getItems().add(new Empleado(1, "e1234567", "Jefe", "./foto.png", new Persona(1, "Roberto", "Aguilera", "Alcantar", "Calle false 123", "4791481494", "AUAR01207AN0", 'H'), new Usuario(1, "kasparov", "12345", "administrador", "777"), 1));
+		cmbBusqueda.getItems().setAll(filtrosBusqueda);
+		cmbEstatus.getItems().setAll(filtrosEstatus);
+
+		cmbBusqueda.setValue(filtrosBusqueda[0]);
+		cmbEstatus.setValue(filtrosEstatus[0]);
+
+		cmbBusqueda.setOnAction(e ->{
+			System.out.println(cmbBusqueda.getValue());
+		});
+
+
+		Empleado e[] = Rest.getAll("employee", "1", Empleado[].class);
+
+		tablaEmpleados.getItems().setAll(e);
+
 	}
 
     @FXML

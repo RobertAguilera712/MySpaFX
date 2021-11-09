@@ -23,6 +23,7 @@ public class Empleado {
     private String numeroEmpleado;
     private String puesto;
     private String rutaFoto;
+    private String foto;
 	private Persona persona;
 	private Usuario usuario;
     private int estatus;
@@ -108,6 +109,14 @@ public class Empleado {
 
 	public void setRutaFoto(String rutaFoto) {
 		this.rutaFoto = rutaFoto;
+	}
+
+	public String getFoto() {
+		return foto;
+	}
+
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 
     public String getNombreUsu() {
