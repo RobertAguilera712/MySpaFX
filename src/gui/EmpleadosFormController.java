@@ -1,8 +1,8 @@
 package gui;
 
+import com.google.gson.Gson;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
-import utils.Check;
 import com.jfoenix.controls.JFXTextField;
 import gui.Alerts.AlertIcon;
 import gui.Alerts.ConfirmationAlert;
@@ -11,7 +11,6 @@ import gui.Alerts.WaitAlert;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,72 +19,141 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
 import model.Empleado;
+import model.Item;
 import model.Persona;
-import utils.Utils;
-import model.Producto;
 import model.Usuario;
+import rest.Rest;
+import utils.Check;
+import utils.Utils;
 
 public class EmpleadosFormController implements Initializable {
 
 	@FXML
-    private JFXTextField txtNombre;
+	private JFXTextField txtNombre;
 
-    @FXML
-    private JFXTextField txtApellido1;
+	@FXML
+	private JFXTextField txtApellido1;
 
-    @FXML
-    private JFXTextField txtApellido2;
+	@FXML
+	private JFXTextField txtApellido2;
 
-    @FXML
-    private JFXTextField txtDomicilio;
+	@FXML
+	private JFXTextField txtDomicilio;
 
-    @FXML
-    private JFXComboBox<?> cmbGenero;
+	@FXML
+	private JFXComboBox<Item> cmbGenero;
 
-    @FXML
-    private JFXTextField txtRfc;
+	@FXML
+	private JFXTextField txtRfc;
 
-    @FXML
-    private JFXTextField txtTelefono;
+	@FXML
+	private JFXTextField txtTelefono;
 
-    @FXML
-    private JFXTextField txtPuesto;
+	@FXML
+	private JFXTextField txtPuesto;
 
-    @FXML
-    private JFXTextField txtUsuario;
+	@FXML
+	private JFXTextField txtUsuario;
 
-    @FXML
-    private JFXPasswordField txtPassword;
+	@FXML
+	private JFXPasswordField txtPassword;
+
+	private static final Item generos[] = {new Item("Selecciona el género", ""), new Item("Masculino", "M"), new Item("Femenino", "F"), new Item("Otro", "O")};
+
+	private Gson gson;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		gson = new Gson();
+		cmbGenero.getItems().setAll(generos);
+		cmbGenero.setValue(generos[0]);
 	}
-/*
 
+	@FXML
+	void guardar(ActionEvent event) {
+		String mensajeError = Check.checkTextInputs(txtNombre, txtApellido1, txtApellido2, txtDomicilio,
+				txtPassword, txtPuesto, txtRfc, txtTelefono, txtUsuario)
+				+ Check.checarCombos(cmbGenero);
 
-	private Empleado getEmpleado() {
-		Empleado empleado = new Empleado(1, "E1234566", txtPuesto.getText(),
-				txtRutaImg.getText(),
-				new Persona(txtNombre.getText(), txtApellido1.getText(),
-						txtApellido2.getText(), txtDireccion.getText(),
-						txtTelefono.getText(), txtRfc.getText(), txtGenero.getValue()),
-				new Usuario(txtUsuario.getText(), txtPassword.getText(),
-						txtPuesto.getText(), "12345"), 1);
-		return empleado;
+		if (mensajeError.isEmpty()) {
+			ConfirmationAlert alerta = new ConfirmationAlert(AlertIcon.QUESTION, Utils.getCurrentWindow(event));
+			alerta.setTitle("¿Quieres guardar el nuevo registro?");
+			alerta.setTextContent("");
+			alerta.setConfirmationButtonText("Si, gaurdarlo");
+			alerta.setCancellationButtonText("No, Cancelar");
+
+			alerta.setConfirmationButtonAction(e -> {
+				Empleado nuevoEmpleado = getEmpleado();
+				Rest.agregarPost("employee", gson.toJson(nuevoEmpleado));
+				WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(event));
+				waitAlert.setTitle("Registro guardado");
+				waitAlert.setTextContent("El nuevo registro se guardó correctamente");
+				limpiarForm();
+				waitAlert.showAndWaitFor(2);
+			});
+
+			alerta.setCancellationButtonAction(e -> {
+				WaitAlert waitAlert = new WaitAlert(AlertIcon.ERROR, Utils.getCurrentWindow(event));
+				waitAlert.setTitle("Cancelado");
+				waitAlert.setTextContent("El registro no fue guardado");
+				waitAlert.showAndWaitFor(2);
+			});
+
+			alerta.showAndWait();
+		} else {
+			OkAlert alert = new OkAlert(AlertIcon.WARNING, Utils.getCurrentWindow(event));
+			alert.setTitle("No has llenado Todos los campos");
+			alert.setTextContent(mensajeError);
+			alert.showAndWait();
+		}
+	}
+
+	@FXML
+	void regresar(ActionEvent event) throws IOException {
+		Scene currentScene = Utils.getCurrentScene(event);
+		ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
+		Node nodo = FXMLLoader.load((getClass().getResource("Empleados.fxml")));
+		mainContainer.setContent(nodo);
 	}
 
 	private void limpiarForm() {
 		txtApellido1.setText("");
 		txtApellido2.setText("");
-		txtDireccion.setText("");
+		txtDomicilio.setText("");
 		txtNombre.setText("");
 		txtPassword.setText("");
 		txtPuesto.setText("");
 		txtRfc.setText("");
-		txtRutaImg.setText("");
 		txtTelefono.setText("");
 		txtUsuario.setText("");
+		cmbGenero.setValue(generos[0]);
 	}
+
+	private Empleado getEmpleado() {
+		Empleado empleado = new Empleado();
+		Persona persona = new Persona();
+		Usuario usuario = new Usuario();
+
+		persona.setNombre(txtNombre.getText());
+		persona.setApellidoP(txtApellido1.getText());
+		persona.setApellidoM(txtApellido2.getText());
+		persona.setGenero(cmbGenero.getValue().getValue().charAt(0));
+		persona.setRfc(txtRfc.getText());
+		persona.setDomicilio(txtDomicilio.getText());
+		persona.setTelefono(txtTelefono.getText());
+
+		usuario.setNombreUsu(txtUsuario.getText());
+		usuario.setContrasenia(txtPassword.getText());
+		usuario.setRol(txtPuesto.getText());
+
+		empleado.setEstatus(1);
+		empleado.setPuesto(txtPuesto.getText());
+		empleado.setPersona(persona);
+		empleado.setUsuario(usuario);
+
+		return empleado;
+	}
+	/*
 
 	public void setEmpleado(Empleado empleado) {
 		this.temp = empleado;
@@ -151,16 +219,6 @@ public class EmpleadosFormController implements Initializable {
 
 	}
 
-	@FXML
-	void regresar(ActionEvent event) throws IOException {
-		Scene currentScene = Utils.getCurrentScene(event);
-		ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
-		loader = new FXMLLoader(getClass().getResource("Empleados.fxml"));
-		Node nodo = loader.load();
-		empleadosController = loader.getController();
-		empleadosController.setEmpleados(listaEmpleados);
-		mainContainer.setContent(nodo);
-	}
 
 	private int getIndex() {
 		int index = -1;
@@ -178,5 +236,5 @@ public class EmpleadosFormController implements Initializable {
 
 		return index;
 	}
-*/
+	 */
 }

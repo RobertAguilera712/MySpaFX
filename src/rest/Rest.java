@@ -4,7 +4,9 @@ import com.google.gson.Gson;
 import java.lang.reflect.Type;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Form;
 import javax.ws.rs.core.MediaType;
 
 public class Rest {
@@ -25,6 +27,17 @@ public class Rest {
 		target = client.target(url).path(nombreModulo).path("search").queryParam("filter", filtro).queryParam("e", estatus);
 		json = target.request(MediaType.APPLICATION_JSON).get(String.class);
 		return gson.fromJson(json, clase);
+	}
+
+	public static void agregarPost(String nombreModulo, String nuevoJson){
+		target = client.target(url).path(nombreModulo).path("insert");
+
+		Form form = new Form();
+		form.param("new", nuevoJson);
+
+		String respuesta = target.request(MediaType.APPLICATION_JSON).post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE), String.class);
+
+		System.out.println(respuesta);
 	}
 
 	

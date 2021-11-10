@@ -19,7 +19,7 @@
             <Label styleClass="h1" text="Agregar empleado" />
          </children>
       </HBox>
-      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="20.0">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="40.0">
          <children>
             <JFXTextField fx:id="txtNombre" promptText="Nombre" styleClass="input" />
             <JFXTextField fx:id="txtApellido1" layoutX="10.0" layoutY="10.0" promptText="Apellido paterno" styleClass="input" />
@@ -38,13 +38,13 @@
       </FlowPane>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="82.0" maxHeight="1.7976931348623157E308" spacing="20.0" VBox.vgrow="ALWAYS">
          <children>
-            <JFXButton text="Guardar">
+            <JFXButton onAction="#guardar" text="Guardar">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-primary" />
                </styleClass>
             </JFXButton>
-            <JFXButton layoutX="333.0" layoutY="10.0" text="Regresar">
+            <JFXButton layoutX="333.0" layoutY="10.0" onAction="#regresar" text="Regresar">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-danger" />

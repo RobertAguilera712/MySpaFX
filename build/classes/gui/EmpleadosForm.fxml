@@ -19,18 +19,18 @@
             <Label styleClass="h1" text="Agregar empleado" />
          </children>
       </HBox>
-      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="20.0">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="40.0">
          <children>
-            <JFXTextField promptText="Nombre" styleClass="input" />
-            <JFXTextField layoutX="10.0" layoutY="10.0" promptText="Apellido paterno" styleClass="input" />
-            <JFXTextField layoutX="262.0" layoutY="10.0" promptText="Apellido materno" styleClass="input" />
-            <JFXTextField layoutX="494.0" layoutY="10.0" promptText="Domicilio" styleClass="input" />
-            <JFXComboBox promptText="Género" styleClass="input" />
-            <JFXTextField layoutX="262.0" layoutY="66.0" promptText="RFC" styleClass="input" />
-            <JFXTextField layoutX="509.0" layoutY="66.0" promptText="Teléfono" styleClass="input" />
-            <JFXTextField layoutX="327.0" layoutY="122.0" promptText="Puesto" styleClass="input" />
-            <JFXTextField layoutX="443.0" layoutY="122.0" promptText="Usuario" styleClass="input" />
-            <JFXPasswordField promptText="Contraseña" styleClass="input" />
+            <JFXTextField fx:id="txtNombre" promptText="Nombre" styleClass="input" />
+            <JFXTextField fx:id="txtApellido1" layoutX="10.0" layoutY="10.0" promptText="Apellido paterno" styleClass="input" />
+            <JFXTextField fx:id="txtApellido2" layoutX="262.0" layoutY="10.0" promptText="Apellido materno" styleClass="input" />
+            <JFXTextField fx:id="txtDomicilio" layoutX="494.0" layoutY="10.0" promptText="Domicilio" styleClass="input" />
+            <JFXComboBox fx:id="cmbGenero" promptText="Género" styleClass="input" />
+            <JFXTextField fx:id="txtRfc" layoutX="262.0" layoutY="66.0" promptText="RFC" styleClass="input" />
+            <JFXTextField fx:id="txtTelefono" layoutX="509.0" layoutY="66.0" promptText="Teléfono" styleClass="input" />
+            <JFXTextField fx:id="txtPuesto" layoutX="327.0" layoutY="122.0" promptText="Puesto" styleClass="input" />
+            <JFXTextField fx:id="txtUsuario" layoutX="443.0" layoutY="122.0" promptText="Usuario" styleClass="input" />
+            <JFXPasswordField fx:id="txtPassword" promptText="Contraseña" styleClass="input" />
          </children>
          <padding>
             <Insets left="20.0" right="20.0" />
@@ -38,13 +38,13 @@
       </FlowPane>
       <HBox alignment="CENTER" layoutX="10.0" layoutY="82.0" maxHeight="1.7976931348623157E308" spacing="20.0" VBox.vgrow="ALWAYS">
          <children>
-            <JFXButton text="Guardar">
+            <JFXButton onAction="#guardar" text="Guardar">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-primary" />
                </styleClass>
             </JFXButton>
-            <JFXButton layoutX="333.0" layoutY="10.0" text="Regresar">
+            <JFXButton layoutX="333.0" layoutY="10.0" onAction="#regresar" text="Regresar">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-danger" />

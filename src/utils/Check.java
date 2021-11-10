@@ -1,30 +1,42 @@
 package utils;
 
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextInputControl;
+import model.Item;
 
-/**
- * The propose of this class is to provide methods to check if inputs had been filled by the user
- * @author kasparov
- */
 public class Check {
+
+	private static final String mensaje = "El campo %s no ha sido llando\n";
 
 	private static String checkTextInput(TextInputControl input){
 		if (input.getText().length() == 0){
-			return String.format("El campo %s no ha sido llenado\n", input.getPromptText());
+			return String.format(mensaje, input.getPromptText());
 		}
 		return "";
 	}
 
-	/**
-	 * This method takes TexInputControl objects as parameters and checks which of them are not filled.
-	 * @param inputs TexInputControl instances. It can be a TextField of PasswordFied
-	 * @return Returns a String indicating which inputs hasn't been filled. Returns an empty String otherwise.
-	 */
+	private static String checarCombo(ComboBox<Item> combo){
+		if (combo.getValue().getValue().length() == 0){
+			return String.format(mensaje, combo.getPromptText());
+		}
+		return "";
+	}
+
 	public static String checkTextInputs(TextInputControl... inputs){
 		StringBuilder sb = new StringBuilder();
 
 		for (TextInputControl input : inputs){
 			sb.append(checkTextInput(input));
+		}
+
+		return sb.toString();
+	}
+
+	public static String checarCombos(ComboBox<Item>... combos){
+		StringBuilder sb = new StringBuilder();
+
+		for (ComboBox combo : combos){
+			sb.append(checarCombo(combo));
 		}
 
 		return sb.toString();
