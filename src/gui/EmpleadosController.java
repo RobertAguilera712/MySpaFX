@@ -73,6 +73,7 @@ public class EmpleadosController implements Initializable {
 
 	private FXMLLoader loader;
 	private EmpleadosFormController formController;
+
 	private static Item filtrosBusqueda[] = {new Item("ID", "idEmpleado"), new Item("Nombre", "nombre"),
 		new Item("Apellido paterno", "apellidoPaterno"), new Item("Apellido materno", "apellidoMaterno"),
 		new Item("Género", "genero"), new Item("Domicilio", "domicilio"), new Item("Telefono", "telefono"),
@@ -154,8 +155,6 @@ public class EmpleadosController implements Initializable {
 		ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
 		loader = new FXMLLoader(getClass().getResource("EmpleadosForm.fxml"));
 		Node nodo = loader.load();
-		formController = loader.getController();
-		formController.setLista(tablaEmpleados.getItems());
 		mainContainer.setContent(nodo);
 
 	}

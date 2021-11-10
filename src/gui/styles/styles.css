@@ -151,6 +151,9 @@
 	-jfx-focus-color: #0d6efd;
 	-fx-background-color: -fx-color-cultured;
 	-jfx-label-float: true;
+	-fx-min-width: 212;
+	-fx-max-width: 212;
+	-fx-pref-width: 212;
 }
 
 .toggle{

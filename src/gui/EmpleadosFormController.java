@@ -26,7 +26,10 @@ import model.Producto;
 import model.Usuario;
 
 public class EmpleadosFormController implements Initializable {
-
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+	}
+/*
 	@FXML
 	private JFXTextField txtNombre;
 
@@ -65,10 +68,6 @@ public class EmpleadosFormController implements Initializable {
 	private ObservableList<Empleado> listaEmpleados;
 	private Empleado temp;
 
-	@Override
-	public void initialize(URL location, ResourceBundle resources) {
-		txtGenero.getItems().addAll('H', 'M', 'O');
-	}
 
 	public void setLista(ObservableList<Empleado> lista) {
 		this.listaEmpleados = lista;
@@ -189,5 +188,5 @@ public class EmpleadosFormController implements Initializable {
 
 		return index;
 	}
-
+*/
 }
