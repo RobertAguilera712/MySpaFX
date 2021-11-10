@@ -22,64 +22,65 @@ import rest.Rest;
 import utils.Utils;
 
 public class EmpleadosController implements Initializable {
-	  @FXML
-    private JFXComboBox<Item> cmbBusqueda;
 
-    @FXML
-    private JFXTextField txtBusqueda;
+	@FXML
+	private JFXComboBox<Item> cmbBusqueda;
 
-    @FXML
-    private JFXComboBox<Item> cmbEstatus;
+	@FXML
+	private JFXTextField txtBusqueda;
 
-    @FXML
-    private TableView<Empleado> tablaEmpleados;
+	@FXML
+	private JFXComboBox<Item> cmbEstatus;
 
-    @FXML
-    private TableColumn<?, ?> columnId;
+	@FXML
+	private TableView<Empleado> tablaEmpleados;
 
-    @FXML
-    private TableColumn<?, ?> columnNombre;
+	@FXML
+	private TableColumn<?, ?> columnId;
 
-    @FXML
-    private TableColumn<?, ?> columnApellido1;
+	@FXML
+	private TableColumn<?, ?> columnNombre;
 
-    @FXML
-    private TableColumn<?, ?> columnApellido2;
+	@FXML
+	private TableColumn<?, ?> columnApellido1;
 
-    @FXML
-    private TableColumn<?, ?> columnGenero;
+	@FXML
+	private TableColumn<?, ?> columnApellido2;
 
-    @FXML
-    private TableColumn<?, ?> columnRFC;
+	@FXML
+	private TableColumn<?, ?> columnGenero;
 
-    @FXML
-    private TableColumn<?, ?> columnTelefono;
+	@FXML
+	private TableColumn<?, ?> columnRFC;
 
-    @FXML
-    private TableColumn<?, ?> columnDomicilio;
+	@FXML
+	private TableColumn<?, ?> columnTelefono;
 
-    @FXML
-    private TableColumn<?, ?> columnPuesto;
+	@FXML
+	private TableColumn<?, ?> columnDomicilio;
 
-    @FXML
-    private TableColumn<?, ?> columnFoto;
+	@FXML
+	private TableColumn<?, ?> columnPuesto;
 
-    @FXML
-    private TableColumn<?, ?> columnUsuario;
+	@FXML
+	private TableColumn<?, ?> columnFoto;
 
-    @FXML
-    private TableColumn<?, ?> columnAcciones;
+	@FXML
+	private TableColumn<?, ?> columnUsuario;
+
+	@FXML
+	private TableColumn<?, ?> columnAcciones;
 
 	private FXMLLoader loader;
 	private EmpleadosFormController formController;
 	private static Item filtrosBusqueda[] = {new Item("ID", "idEmpleado"), new Item("Nombre", "nombre"),
-				new Item("Apellido paterno", "apellidoPaterno"), new Item("Apellido materno", "apellidoMaterno"),
-				new Item("Género", "genero"), new Item("Domicilio", "domicilio"), new Item("Telefono", "telefono"),
-				new Item("RFC", "rfc"), new Item("Número de empleado", "numeroEmpleado"), new Item("Puesto", "puesto"),
-				new Item("Nombre de usuario", "nombreUsuario")};
+		new Item("Apellido paterno", "apellidoPaterno"), new Item("Apellido materno", "apellidoMaterno"),
+		new Item("Género", "genero"), new Item("Domicilio", "domicilio"), new Item("Telefono", "telefono"),
+		new Item("RFC", "rfc"), new Item("Número de empleado", "numeroEmpleado"), new Item("Puesto", "puesto"),
+		new Item("Nombre de usuario", "nombreUsuario")};
 
 	private static Item filtrosEstatus[] = {new Item("Activos", "1"), new Item("Inactivos", "0")};
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -101,30 +102,65 @@ public class EmpleadosController implements Initializable {
 		cmbBusqueda.setValue(filtrosBusqueda[0]);
 		cmbEstatus.setValue(filtrosEstatus[0]);
 
-		cmbBusqueda.setOnAction(e ->{
-			System.out.println(cmbBusqueda.getValue());
+		cmbEstatus.setOnAction(e -> {
+			if (txtBusqueda.getText().trim().length() > 0){
+				buscar();
+			}else{
+				llenarTabla();
+			}
 		});
 
+		cmbBusqueda.setOnAction(e -> {
+			buscar();
+		});
 
-		Empleado e[] = Rest.getAll("employee", "1", Empleado[].class);
+		txtBusqueda.setOnKeyReleased(e -> {
+			if (e.getText().length() > 0){
+				buscar();
+			}
+		});
 
-		tablaEmpleados.getItems().setAll(e);
+		llenarTabla();
 
 	}
 
-    @FXML
-    void agregar(ActionEvent event) throws IOException {
+	private void llenarTabla() {
+		try {
+			String estatus = cmbEstatus.getValue().getValue();
+			Empleado empleados[] = Rest.obtenerRegistros("employee", estatus, Empleado[].class);
+			tablaEmpleados.getItems().setAll(empleados);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+	}
+
+	private void buscar() {
+		try {
+			String estatus = cmbEstatus.getValue().getValue();
+			String filtroBusqueda = cmbBusqueda.getValue().getValue();
+			String consulta = txtBusqueda.getText().trim();
+			String filtro = String.format("%s LIKE \"%%25%s%%25\"", filtroBusqueda, consulta);
+			Empleado empleados[] = Rest.buscar("employee", estatus, filtro, Empleado[].class);
+			tablaEmpleados.getItems().setAll(empleados);
+		} catch (Exception e) {
+			System.out.println(e.toString());
+		}
+
+	}
+
+	@FXML
+	void agregar(ActionEvent event) throws IOException {
 		Scene currentScene = Utils.getCurrentScene(event);
 		ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
 		loader = new FXMLLoader(getClass().getResource("EmpleadosForm.fxml"));
-		Node nodo =loader.load();
+		Node nodo = loader.load();
 		formController = loader.getController();
 		formController.setLista(tablaEmpleados.getItems());
 		mainContainer.setContent(nodo);
 
-    }
+	}
 
-	public void setEmpleados(ObservableList<Empleado> empleados){
+	public void setEmpleados(ObservableList<Empleado> empleados) {
 		tablaEmpleados.getItems().setAll(empleados);
 	}
 

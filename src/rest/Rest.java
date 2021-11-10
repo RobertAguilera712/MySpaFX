@@ -15,10 +15,17 @@ public class Rest {
 	private static final String url = "http://localhost:8080/MySpa/api";
 	private static String json;
 
-	public static <T> T[] getAll(String moduleName, String status, Class<T[]> clazz){
-		target = client.target(url).path(moduleName).path("getAll").queryParam("e", status);
+	public static <T> T[] obtenerRegistros(String nombreModulo, String estatus, Class<T[]> clase){
+		target = client.target(url).path(nombreModulo).path("getAll").queryParam("e", estatus);
 		json = target.request(MediaType.APPLICATION_JSON).get(String.class);
-		return gson.fromJson(json, clazz);
+		return gson.fromJson(json, clase);
 	}
+
+	public static <T> T[] buscar(String nombreModulo, String estatus, String filtro, Class<T[]> clase){
+		target = client.target(url).path(nombreModulo).path("search").queryParam("filter", filtro).queryParam("e", estatus);
+		json = target.request(MediaType.APPLICATION_JSON).get(String.class);
+		return gson.fromJson(json, clase);
+	}
+
 	
 }
