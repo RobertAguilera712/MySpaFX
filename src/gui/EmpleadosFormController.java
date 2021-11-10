@@ -11,6 +11,8 @@ import gui.Alerts.WaitAlert;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -61,10 +63,12 @@ public class EmpleadosFormController implements Initializable {
 	private static final Item generos[] = {new Item("Selecciona el género", ""), new Item("Masculino", "M"), new Item("Femenino", "F"), new Item("Otro", "O")};
 
 	private Gson gson;
+	private Empleado temp;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		gson = new Gson();
+		temp = null;
 		cmbGenero.getItems().setAll(generos);
 		cmbGenero.setValue(generos[0]);
 	}
@@ -77,29 +81,66 @@ public class EmpleadosFormController implements Initializable {
 
 		if (mensajeError.isEmpty()) {
 			ConfirmationAlert alerta = new ConfirmationAlert(AlertIcon.QUESTION, Utils.getCurrentWindow(event));
-			alerta.setTitle("¿Quieres guardar el nuevo registro?");
-			alerta.setTextContent("");
-			alerta.setConfirmationButtonText("Si, gaurdarlo");
-			alerta.setCancellationButtonText("No, Cancelar");
+			if (temp == null) {
+				alerta.setTitle("¿Quieres guardar el nuevo registro?");
+				alerta.setTextContent("");
+				alerta.setConfirmationButtonText("Si, gaurdarlo");
+				alerta.setCancellationButtonText("No, Cancelar");
 
-			alerta.setConfirmationButtonAction(e -> {
-				Empleado nuevoEmpleado = getEmpleado();
-				Rest.agregarPost("employee", gson.toJson(nuevoEmpleado));
-				WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(event));
-				waitAlert.setTitle("Registro guardado");
-				waitAlert.setTextContent("El nuevo registro se guardó correctamente");
-				limpiarForm();
-				waitAlert.showAndWaitFor(2);
-			});
+				alerta.setConfirmationButtonAction(e -> {
+					Empleado nuevoEmpleado = getEmpleado();
+					Rest.agregarPost("employee", gson.toJson(nuevoEmpleado));
+					WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(event));
+					waitAlert.setTitle("Registro guardado");
+					waitAlert.setTextContent("El nuevo registro se guardó correctamente");
+					limpiarForm();
+					waitAlert.showAndWaitFor(2);
+				});
 
-			alerta.setCancellationButtonAction(e -> {
-				WaitAlert waitAlert = new WaitAlert(AlertIcon.ERROR, Utils.getCurrentWindow(event));
-				waitAlert.setTitle("Cancelado");
-				waitAlert.setTextContent("El registro no fue guardado");
-				waitAlert.showAndWaitFor(2);
-			});
+				alerta.setCancellationButtonAction(e -> {
+					WaitAlert waitAlert = new WaitAlert(AlertIcon.ERROR, Utils.getCurrentWindow(event));
+					waitAlert.setTitle("Cancelado");
+					waitAlert.setTextContent("El registro no fue guardado");
+					waitAlert.showAndWaitFor(2);
+				});
 
-			alerta.showAndWait();
+				alerta.showAndWait();
+
+			}else{
+				alerta.setTitle("¿Quieres guardar los cambios?");
+				alerta.setTextContent("");
+				alerta.setConfirmationButtonText("Si, guardarlos");
+				alerta.setCancellationButtonText("No, Cancelar");
+
+				alerta.setConfirmationButtonAction(e -> {
+					Empleado nuevoEmpleado = getEmpleado();
+					nuevoEmpleado.setId(temp.getId());
+					nuevoEmpleado.getPersona().setId(temp.getPersona().getId());
+					nuevoEmpleado.getUsuario().setId(nuevoEmpleado.getUsuario().getId());
+
+					Rest.modificarPost("employee", gson.toJson(nuevoEmpleado));
+					WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(event));
+					waitAlert.setTitle("Registro modificado correctamente");
+					waitAlert.setTextContent("El registro se modificó correctamente");
+					waitAlert.showAndWaitFor(2);
+					try {
+						regresar(null);
+					} catch (IOException ex) {
+						Logger.getLogger(EmpleadosFormController.class.getName()).log(Level.SEVERE, null, ex);
+					}
+				});
+
+				alerta.setCancellationButtonAction(e -> {
+					WaitAlert waitAlert = new WaitAlert(AlertIcon.ERROR, Utils.getCurrentWindow(event));
+					waitAlert.setTitle("Cancelado");
+					waitAlert.setTextContent("No se guardaron los cambios");
+					waitAlert.showAndWaitFor(2);
+				});
+
+				alerta.showAndWait();
+
+			}
+
 		} else {
 			OkAlert alert = new OkAlert(AlertIcon.WARNING, Utils.getCurrentWindow(event));
 			alert.setTitle("No has llenado Todos los campos");
@@ -129,6 +170,26 @@ public class EmpleadosFormController implements Initializable {
 		cmbGenero.setValue(generos[0]);
 	}
 
+	public void setEmpleado(Empleado e) {
+		this.temp = e;
+		txtApellido1.setText(e.getApellidoP());
+		txtApellido2.setText(e.getApellidoM());
+		txtDomicilio.setText(e.getDomicilio());
+		txtNombre.setText(e.getNombre());
+		txtPassword.setText(e.getContrasenia());
+		txtPuesto.setText(e.getPuesto());
+		txtRfc.setText(e.getRfc());
+		txtTelefono.setText(e.getTelefono());
+		txtUsuario.setText(e.getNombreUsu());
+
+		for (Item item : generos) {
+			if (item.getValue().equalsIgnoreCase(e.getGenero())) {
+				cmbGenero.setValue(item);
+				break;
+			}
+		}
+	}
+
 	private Empleado getEmpleado() {
 		Empleado empleado = new Empleado();
 		Persona persona = new Persona();
@@ -137,7 +198,7 @@ public class EmpleadosFormController implements Initializable {
 		persona.setNombre(txtNombre.getText());
 		persona.setApellidoP(txtApellido1.getText());
 		persona.setApellidoM(txtApellido2.getText());
-		persona.setGenero(cmbGenero.getValue().getValue().charAt(0));
+		persona.setGenero(cmbGenero.getValue().getValue());
 		persona.setRfc(txtRfc.getText());
 		persona.setDomicilio(txtDomicilio.getText());
 		persona.setTelefono(txtTelefono.getText());

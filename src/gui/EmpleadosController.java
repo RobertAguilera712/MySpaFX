@@ -1,10 +1,16 @@
 package gui;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
+import gui.Alerts.AlertIcon;
+import gui.Alerts.ConfirmationAlert;
+import gui.Alerts.WaitAlert;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,6 +21,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.HBox;
 import model.Empleado;
 import model.Item;
 import rest.Rest;
@@ -35,40 +42,43 @@ public class EmpleadosController implements Initializable {
 	private TableView<Empleado> tablaEmpleados;
 
 	@FXML
-	private TableColumn<?, ?> columnId;
+	private TableColumn<Empleado, Integer> columnId;
 
 	@FXML
-	private TableColumn<?, ?> columnNombre;
+	private TableColumn<Empleado, String> columnNombre;
 
 	@FXML
-	private TableColumn<?, ?> columnApellido1;
+	private TableColumn<Empleado, String> columnApellido1;
 
 	@FXML
-	private TableColumn<?, ?> columnApellido2;
+	private TableColumn<Empleado, String> columnApellido2;
 
 	@FXML
-	private TableColumn<?, ?> columnGenero;
+	private TableColumn<Empleado, String> columnGenero;
 
 	@FXML
-	private TableColumn<?, ?> columnRFC;
+	private TableColumn<Empleado, String> columnRFC;
 
 	@FXML
-	private TableColumn<?, ?> columnTelefono;
+	private TableColumn<Empleado, String> columnTelefono;
 
 	@FXML
-	private TableColumn<?, ?> columnDomicilio;
+	private TableColumn<Empleado, String> columnDomicilio;
 
 	@FXML
-	private TableColumn<?, ?> columnPuesto;
+	private TableColumn<Empleado, String> columnPuesto;
 
 	@FXML
-	private TableColumn<?, ?> columnFoto;
+	private TableColumn<Empleado, String> columnFoto;
 
 	@FXML
-	private TableColumn<?, ?> columnUsuario;
+	private TableColumn<Empleado, String> columnUsuario;
 
 	@FXML
-	private TableColumn<?, ?> columnAcciones;
+	private TableColumn<Empleado, HBox> columnAcciones;
+
+	private FXMLLoader loader;
+	private EmpleadosFormController formController;
 
 	private static Item filtrosBusqueda[] = {new Item("ID", "idEmpleado"), new Item("Nombre", "nombre"),
 		new Item("Apellido paterno", "apellidoPaterno"), new Item("Apellido materno", "apellidoMaterno"),
@@ -100,9 +110,9 @@ public class EmpleadosController implements Initializable {
 		cmbEstatus.setValue(filtrosEstatus[0]);
 
 		cmbEstatus.setOnAction(e -> {
-			if (txtBusqueda.getText().trim().length() > 0){
+			if (txtBusqueda.getText().trim().length() > 0) {
 				buscar();
-			}else{
+			} else {
 				llenarTabla();
 			}
 		});
@@ -112,7 +122,7 @@ public class EmpleadosController implements Initializable {
 		});
 
 		txtBusqueda.setOnKeyReleased(e -> {
-			if (e.getText().length() > 0){
+			if (e.getText().length() > 0) {
 				buscar();
 			}
 		});
@@ -126,9 +136,24 @@ public class EmpleadosController implements Initializable {
 			String estatus = cmbEstatus.getValue().getValue();
 			Empleado empleados[] = Rest.obtenerRegistros("employee", estatus, Empleado[].class);
 			tablaEmpleados.getItems().setAll(empleados);
+			ponerAcciones();
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
+	}
+
+	private void ponerAcciones() {
+		tablaEmpleados.getItems().forEach(e -> {
+			// Modificar
+			((JFXButton) e.getAcciones().getChildren().get(0)).setOnAction(event -> {
+				modificar(e, event);
+			});
+
+			// Eliminar
+			((JFXButton) e.getAcciones().getChildren().get(1)).setOnAction(event -> {
+				eliminar(String.valueOf(e.getId()), event);
+			});
+		});
 	}
 
 	private void buscar() {
@@ -136,9 +161,14 @@ public class EmpleadosController implements Initializable {
 			String estatus = cmbEstatus.getValue().getValue();
 			String filtroBusqueda = cmbBusqueda.getValue().getValue();
 			String consulta = txtBusqueda.getText().trim();
+			// 	nombre LIKE "%luis%" 
+			// %% = % en String
+			// %s = placeholder donde va a ir un string que le pasemos como parametros
+			// %%25 = % en un URL
 			String filtro = String.format("%s LIKE \"%%25%s%%25\"", filtroBusqueda, consulta);
 			Empleado empleados[] = Rest.buscar("employee", estatus, filtro, Empleado[].class);
 			tablaEmpleados.getItems().setAll(empleados);
+			ponerAcciones();
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
@@ -151,6 +181,47 @@ public class EmpleadosController implements Initializable {
 		ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
 		Node nodo = FXMLLoader.load(getClass().getResource("EmpleadosForm.fxml"));
 		mainContainer.setContent(nodo);
+	}
+
+	private void modificar(Empleado empleado, ActionEvent e) {
+		try {
+			Scene currentScene = Utils.getCurrentScene(e);
+			ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
+			loader = new FXMLLoader(getClass().getResource("EmpleadosForm.fxml"));
+			Node nodo;
+			nodo = loader.load();
+			formController = loader.getController();
+			formController.setEmpleado(empleado);
+			mainContainer.setContent(nodo);
+		} catch (IOException ex) {
+			Logger.getLogger(EmpleadosController.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	private void eliminar(String id, ActionEvent e) {
+		ConfirmationAlert alert = new ConfirmationAlert(AlertIcon.WARNING, Utils.getCurrentWindow(e));
+		alert.setTitle("¿Estas seguro de eliminar el registro?");
+		alert.setTextContent("");
+		alert.setCancellationButtonText("No, cancelar");
+		alert.setConfirmationButtonText("Si, eliminarlo");
+
+		alert.setCancellationButtonAction(event -> {
+			WaitAlert waitAlert = new WaitAlert(AlertIcon.ERROR, Utils.getCurrentWindow(e));
+			waitAlert.setTitle("Cancelado");
+			waitAlert.setTextContent("El registro no ha sido eliminado");
+			waitAlert.showAndWaitFor(3);
+		});
+
+		alert.setConfirmationButtonAction(event -> {
+			Rest.eliminar("employee", id);
+			llenarTabla();
+			WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(e));
+			waitAlert.setTitle("Registro eliminado");
+			waitAlert.setTextContent("El registro ah sido eliminado correctamente");
+			waitAlert.showAndWaitFor(3);
+		});
+
+		alert.showAndWait();
 	}
 
 }

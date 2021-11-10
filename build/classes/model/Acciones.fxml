@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="model.AccionesController">
+   <children>
+      <JFXButton fx:id="btnModificar" text="Modificar">
+         <styleClass>
+            <String fx:value="btn" />
+            <String fx:value="btn-warning" />
+         </styleClass>
+      </JFXButton>
+      <JFXButton fx:id="btnEliminar" layoutX="10.0" layoutY="10.0" text="Eliminar">
+         <styleClass>
+            <String fx:value="btn" />
+            <String fx:value="btn-danger" />
+         </styleClass>
+      </JFXButton>
+   </children>
+   <stylesheets>
+      <URL value="@../gui/styles/icons.css" />
+      <URL value="@../gui/styles/styles.css" />
+   </stylesheets>
+</HBox>

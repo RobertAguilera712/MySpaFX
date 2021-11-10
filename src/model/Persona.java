@@ -3,12 +3,12 @@ package model;
 public class Persona {
     private int id;
     private String nombre, apellidoP, apellidoM, domicilio, telefono, rfc;
-    private char genero;
+    private String genero;
 
     public Persona() {
     }
 
-    public Persona(int id, String nombre, String apellidoP, String apellidoM, String domicilio, String telefono, String rfc, char genero) {
+    public Persona(int id, String nombre, String apellidoP, String apellidoM, String domicilio, String telefono, String rfc, String genero) {
         this.id = id;
         this.nombre = nombre;
         this.apellidoP = apellidoP;
@@ -19,7 +19,7 @@ public class Persona {
         this.genero = genero;
     }
 
-    public Persona(String nombre, String apellidoP, String apellidoM, String domicilio, String telefono, String rfc, char genero) {
+    public Persona(String nombre, String apellidoP, String apellidoM, String domicilio, String telefono, String rfc, String genero) {
         this.nombre = nombre;
         this.apellidoP = apellidoP;
         this.apellidoM = apellidoM;
@@ -85,11 +85,11 @@ public class Persona {
         this.rfc = rfc;
     }
 
-    public char getGenero() {
+    public String getGenero() {
         return genero;
     }
 
-    public void setGenero(char genero) {
+    public void setGenero(String genero) {
         this.genero = genero;
     }
 
