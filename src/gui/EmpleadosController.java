@@ -154,8 +154,4 @@ public class EmpleadosController implements Initializable {
 		mainContainer.setContent(nodo);
 	}
 
-	public void setEmpleados(ObservableList<Empleado> empleados) {
-		tablaEmpleados.getItems().setAll(empleados);
-	}
-
 }

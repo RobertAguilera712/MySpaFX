@@ -26,52 +26,42 @@ import model.Producto;
 import model.Usuario;
 
 public class EmpleadosFormController implements Initializable {
+
+	@FXML
+    private JFXTextField txtNombre;
+
+    @FXML
+    private JFXTextField txtApellido1;
+
+    @FXML
+    private JFXTextField txtApellido2;
+
+    @FXML
+    private JFXTextField txtDomicilio;
+
+    @FXML
+    private JFXComboBox<?> cmbGenero;
+
+    @FXML
+    private JFXTextField txtRfc;
+
+    @FXML
+    private JFXTextField txtTelefono;
+
+    @FXML
+    private JFXTextField txtPuesto;
+
+    @FXML
+    private JFXTextField txtUsuario;
+
+    @FXML
+    private JFXPasswordField txtPassword;
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 	}
 /*
-	@FXML
-	private JFXTextField txtNombre;
 
-	@FXML
-	private JFXTextField txtApellido1;
-
-	@FXML
-	private JFXTextField txtApellido2;
-
-	@FXML
-	private JFXComboBox<Character> txtGenero;
-
-	@FXML
-	private JFXTextField txtRfc;
-
-	@FXML
-	private JFXTextField txtDireccion;
-
-	@FXML
-	private JFXTextField txtTelefono;
-
-	@FXML
-	private JFXTextField txtPuesto;
-
-	@FXML
-	private JFXTextField txtRutaImg;
-
-	@FXML
-	private JFXTextField txtUsuario;
-
-	@FXML
-	private JFXPasswordField txtPassword;
-
-	private FXMLLoader loader;
-	private EmpleadosController empleadosController;
-	private ObservableList<Empleado> listaEmpleados;
-	private Empleado temp;
-
-
-	public void setLista(ObservableList<Empleado> lista) {
-		this.listaEmpleados = lista;
-	}
 
 	private Empleado getEmpleado() {
 		Empleado empleado = new Empleado(1, "E1234566", txtPuesto.getText(),
