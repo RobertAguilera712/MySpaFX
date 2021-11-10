@@ -71,9 +71,6 @@ public class EmpleadosController implements Initializable {
 	@FXML
 	private TableColumn<?, ?> columnAcciones;
 
-	private FXMLLoader loader;
-	private EmpleadosFormController formController;
-
 	private static Item filtrosBusqueda[] = {new Item("ID", "idEmpleado"), new Item("Nombre", "nombre"),
 		new Item("Apellido paterno", "apellidoPaterno"), new Item("Apellido materno", "apellidoMaterno"),
 		new Item("Género", "genero"), new Item("Domicilio", "domicilio"), new Item("Telefono", "telefono"),
@@ -153,10 +150,8 @@ public class EmpleadosController implements Initializable {
 	void agregar(ActionEvent event) throws IOException {
 		Scene currentScene = Utils.getCurrentScene(event);
 		ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
-		loader = new FXMLLoader(getClass().getResource("EmpleadosForm.fxml"));
-		Node nodo = loader.load();
+		Node nodo = FXMLLoader.load(getClass().getResource("EmpleadosForm.fxml"));
 		mainContainer.setContent(nodo);
-
 	}
 
 	public void setEmpleados(ObservableList<Empleado> empleados) {

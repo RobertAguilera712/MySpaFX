@@ -9,6 +9,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
@@ -19,20 +20,23 @@
             <Label styleClass="h1" text="Empleados" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" spacing="20.0">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" vgap="40.0">
          <children>
             <JFXComboBox fx:id="cmbBusqueda" minWidth="200.0" promptText="Buscar por:" styleClass="input" />
             <JFXTextField fx:id="txtBusqueda" minWidth="200.0" promptText="Buscar" styleClass="input" />
-            <JFXComboBox fx:id="cmbEstatus" layoutX="732.0" layoutY="11.0" minWidth="200.0" promptText="Mostrar Registros:" styleClass="input" />
-            <JFXButton onAction="#agregar" text="Agregar">
+            <JFXComboBox fx:id="cmbEstatus" minWidth="200.0" promptText="Mostrar Registros:" styleClass="input" />
+            <JFXButton onAction="#agregar" prefWidth="212.0" text="Agregar">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-success" />
                </styleClass>
             </JFXButton>
          </children>
-      </HBox>
-      <TableView fx:id="tablaEmpleados" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </FlowPane>
+      <TableView fx:id="tablaEmpleados" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="300.0" VBox.vgrow="ALWAYS">
          <columns>
             <TableColumn fx:id="columnId" editable="false" maxWidth="1.7976931348623157E308" minWidth="50.0" prefWidth="-1.0" resizable="false" text="ID" />
             <TableColumn fx:id="columnNombre" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Nombre" />

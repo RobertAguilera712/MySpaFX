@@ -207,7 +207,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <ScrollPane fx:id="mainContainer" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: red;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <ScrollPane fx:id="mainContainer" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
    </children>
    <stylesheets>
       <URL value="@styles/icons.css" />

@@ -157,8 +157,8 @@ public class Empleado {
 				FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/EmpleadosForm.fxml"));
 				Node nodo = loader.load();
 				EmpleadosFormController formController = loader.getController();
-				formController.setEmpleado(this);
-				formController.setLista(tabla.getItems());
+//				formController.setEmpleado(this);
+//				formController.setLista(tabla.getItems());
 				mainContainer.setContent(nodo);
 			} catch (IOException ex) {
 				Logger.getLogger(Producto.class.getName()).log(Level.SEVERE, null, ex);

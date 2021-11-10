@@ -14,7 +14,7 @@ public class MySpaFX extends Application {
 		
 		Scene scene = new Scene(root);
 		stage.setTitle("MySpa");
-		stage.setMinWidth(896);
+		stage.setMinWidth(640);
 		stage.setMinHeight(504);
 		
 		stage.setScene(scene);
