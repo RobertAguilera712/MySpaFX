@@ -106,7 +106,7 @@ public class EmpleadosFormController implements Initializable {
 
 				alerta.showAndWait();
 
-			}else{
+			} else {
 				alerta.setTitle("¿Quieres guardar los cambios?");
 				alerta.setTextContent("");
 				alerta.setConfirmationButtonText("Si, guardarlos");
@@ -116,15 +116,19 @@ public class EmpleadosFormController implements Initializable {
 					Empleado nuevoEmpleado = getEmpleado();
 					nuevoEmpleado.setId(temp.getId());
 					nuevoEmpleado.getPersona().setId(temp.getPersona().getId());
-					nuevoEmpleado.getUsuario().setId(nuevoEmpleado.getUsuario().getId());
+					nuevoEmpleado.getUsuario().setId(temp.getUsuario().getId());
 
-					Rest.modificarPost("employee", gson.toJson(nuevoEmpleado));
+					String json = gson.toJson(nuevoEmpleado);
+
+					System.out.println(json);
+
+					Rest.modificarPost("employee", json);
 					WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(event));
 					waitAlert.setTitle("Registro modificado correctamente");
 					waitAlert.setTextContent("El registro se modificó correctamente");
 					waitAlert.showAndWaitFor(2);
 					try {
-						regresar(null);
+						regresar(event);
 					} catch (IOException ex) {
 						Logger.getLogger(EmpleadosFormController.class.getName()).log(Level.SEVERE, null, ex);
 					}
@@ -214,88 +218,4 @@ public class EmpleadosFormController implements Initializable {
 
 		return empleado;
 	}
-	/*
-
-	public void setEmpleado(Empleado empleado) {
-		this.temp = empleado;
-		txtApellido1.setText(this.temp.getApellidoP());
-		txtApellido2.setText(this.temp.getApellidoM());
-		txtDireccion.setText(this.temp.getDomicilio());
-		txtNombre.setText(this.temp.getNombre());
-		txtPassword.setText(this.temp.getContrasenia());
-		txtPuesto.setText(this.temp.getPuesto());
-		txtRfc.setText(this.temp.getRfc());
-		txtRutaImg.setText(this.temp.getRutaFoto());
-		txtTelefono.setText(this.temp.getTelefono());
-		txtUsuario.setText(this.temp.getNombreUsu());
-		txtGenero.setValue(this.temp.getGenero());
-	}
-
-	@FXML
-	void guardar(ActionEvent event) {
-		String errorMessage = Check.checkTextInputs(txtApellido1, txtApellido2, txtDireccion,
-				txtNombre, txtPassword, txtPuesto, txtRfc, txtRutaImg, txtTelefono, txtUsuario);
-
-		// If message is empty that means that all fields were filled
-		if (errorMessage.isEmpty()) {
-			ConfirmationAlert alerta = new ConfirmationAlert(AlertIcon.QUESTION, Utils.getCurrentWindow(event));
-			alerta.setTitle("¿Quieres guardar el nuevo registro?");
-			alerta.setTextContent("");
-			alerta.setConfirmationButtonText("Si, gaurdarlo");
-			alerta.setCancellationButtonText("No, Cancelar");
-
-			alerta.setConfirmationButtonAction(e -> {
-				Empleado nuevoEmpleado = getEmpleado();
-				WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(event));
-				if (temp != null) {
-					int index = getIndex();
-					listaEmpleados.remove(index);
-					listaEmpleados.add(index, nuevoEmpleado);
-					waitAlert.setTitle("Modificación existosa");
-					waitAlert.setTextContent("Se modificaron los datos");
-				} else {
-					listaEmpleados.add(nuevoEmpleado);
-					waitAlert.setTitle("Registro guardado");
-					waitAlert.setTextContent("El nuevo registro se guardó correctamente");
-				}
-				limpiarForm();
-				waitAlert.showAndWaitFor(2);
-			});
-
-			alerta.setCancellationButtonAction(e -> {
-				WaitAlert waitAlert = new WaitAlert(AlertIcon.ERROR, Utils.getCurrentWindow(event));
-				waitAlert.setTitle("Cancelado");
-				waitAlert.setTextContent("El registro no fue guardado");
-				waitAlert.showAndWaitFor(2);
-			});
-
-			alerta.showAndWait();
-
-		} else {
-			OkAlert alert = new OkAlert(AlertIcon.WARNING, Utils.getCurrentWindow(event));
-			alert.setTitle("No has llenado Todos los campos");
-			alert.setTextContent(errorMessage);
-			alert.showAndWait();
-		}
-
-	}
-
-
-	private int getIndex() {
-		int index = -1;
-		String tempToString = temp.toString();
-		String currenToString = "";
-		Empleado current;
-		for (int i = 0, n = listaEmpleados.size(); i < n; i++) {
-			current = listaEmpleados.get(i);
-			currenToString = current.toString();
-			if (tempToString.equals(currenToString)) {
-				index = i;
-				break;
-			}
-		}
-
-		return index;
-	}
-	 */
 }
