@@ -43,7 +43,7 @@ public class Checar {
 	 * Regresa un String vacío si el combo fue llenado
 	 */
 	private static String checarCombo(ComboBox<Item> combo){
-		if (combo.getValue().getValue().length() == 0){
+		if (combo.getValue().getValor().length() == 0){
 			return String.format(MENSAJE, combo.getPromptText());
 		}
 		return "";

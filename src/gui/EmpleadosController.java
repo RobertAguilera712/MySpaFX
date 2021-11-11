@@ -133,7 +133,7 @@ public class EmpleadosController implements Initializable {
 
 	private void llenarTabla() {
 		try {
-			String estatus = cmbEstatus.getValue().getValue();
+			String estatus = cmbEstatus.getValue().getValor();
 			Empleado empleados[] = Rest.obtenerRegistros("employee", estatus, Empleado[].class);
 			tablaEmpleados.getItems().setAll(empleados);
 			ponerAcciones();
@@ -158,8 +158,8 @@ public class EmpleadosController implements Initializable {
 
 	private void buscar() {
 		try {
-			String estatus = cmbEstatus.getValue().getValue();
-			String filtroBusqueda = cmbBusqueda.getValue().getValue();
+			String estatus = cmbEstatus.getValue().getValor();
+			String filtroBusqueda = cmbBusqueda.getValue().getValor();
 			String consulta = txtBusqueda.getText().trim();
 			// 	nombre LIKE "%luis%" 
 			// %% = % en String

@@ -187,7 +187,7 @@ public class EmpleadosFormController implements Initializable {
 		txtUsuario.setText(e.getNombreUsu());
 
 		for (Item item : generos) {
-			if (item.getValue().equalsIgnoreCase(e.getGenero())) {
+			if (item.getValor().equalsIgnoreCase(e.getGenero())) {
 				cmbGenero.setValue(item);
 				break;
 			}
@@ -202,7 +202,7 @@ public class EmpleadosFormController implements Initializable {
 		persona.setNombre(txtNombre.getText());
 		persona.setApellidoP(txtApellido1.getText());
 		persona.setApellidoM(txtApellido2.getText());
-		persona.setGenero(cmbGenero.getValue().getValue());
+		persona.setGenero(cmbGenero.getValue().getValor());
 		persona.setRfc(txtRfc.getText());
 		persona.setDomicilio(txtDomicilio.getText());
 		persona.setTelefono(txtTelefono.getText());
