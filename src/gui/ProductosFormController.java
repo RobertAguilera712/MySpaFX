@@ -2,7 +2,7 @@ package gui;
 
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXPasswordField;
-import utils.Check;
+import utils.Checar;
 import com.jfoenix.controls.JFXTextField;
 import gui.Alerts.AlertIcon;
 import gui.Alerts.ConfirmationAlert;
@@ -50,7 +50,7 @@ public class ProductosFormController implements Initializable {
 	@FXML
 	private void guardar(ActionEvent event) throws IOException {
 
-		String errorMessage = Check.checkTextInputs(txtNombre, txtMarca, txtPrecio);
+		String errorMessage = Checar.checarInputsTexto(txtNombre, txtMarca, txtPrecio);
 
 		// If message is empty that means that all fields were filled
 		if (errorMessage.isEmpty()) {

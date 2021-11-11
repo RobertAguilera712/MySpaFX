@@ -25,7 +25,7 @@ import model.Item;
 import model.Persona;
 import model.Usuario;
 import rest.Rest;
-import utils.Check;
+import utils.Checar;
 import utils.Utils;
 
 public class EmpleadosFormController implements Initializable {
@@ -75,9 +75,9 @@ public class EmpleadosFormController implements Initializable {
 
 	@FXML
 	void guardar(ActionEvent event) {
-		String mensajeError = Check.checkTextInputs(txtNombre, txtApellido1, txtApellido2, txtDomicilio,
+		String mensajeError = Checar.checarInputsTexto(txtNombre, txtApellido1, txtApellido2, txtDomicilio,
 				txtPassword, txtPuesto, txtRfc, txtTelefono, txtUsuario)
-				+ Check.checarCombos(cmbGenero);
+				+ Checar.checarCombos(cmbGenero);
 
 		if (mensajeError.isEmpty()) {
 			ConfirmationAlert alerta = new ConfirmationAlert(AlertIcon.QUESTION, Utils.getCurrentWindow(event));

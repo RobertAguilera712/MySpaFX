@@ -1,6 +1,6 @@
 package gui;
 
-import utils.Check;
+import utils.Checar;
 import com.jfoenix.controls.JFXPasswordField;
 import com.jfoenix.controls.JFXTextField;
 import gui.Alerts.AlertIcon;
@@ -35,7 +35,7 @@ public class LoginController implements Initializable {
 	@FXML
 	private void login(ActionEvent event) throws IOException {
 
-		String errorMessage = Check.checkTextInputs(txtUsuario, txtPassword);
+		String errorMessage = Checar.checarInputsTexto(txtUsuario, txtPassword);
 
 		// If message is empty that means that field were filled
 		if (errorMessage.isEmpty()) {
