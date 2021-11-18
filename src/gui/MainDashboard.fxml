@@ -81,6 +81,22 @@
                   <Button mnemonicParsing="false" onAction="#switchModule">
                      <styleClass>
                         <String fx:value="icon" />
+                        <String fx:value="sucursales" />
+                     </styleClass>
+                  </Button>
+                  <Label styleClass="text-white" text="Sucursales">
+                     <HBox.margin>
+                        <Insets left="5.0" />
+                     </HBox.margin>
+                  </Label>
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="75.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
+               <children>
+                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
+                  <Button mnemonicParsing="false" onAction="#switchModule">
+                     <styleClass>
+                        <String fx:value="icon" />
                         <String fx:value="empleados" />
                      </styleClass>
                   </Button>

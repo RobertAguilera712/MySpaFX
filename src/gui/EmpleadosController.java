@@ -80,13 +80,12 @@ public class EmpleadosController implements Initializable {
 	private FXMLLoader loader;
 	private EmpleadosFormController formController;
 
-	private static Item filtrosBusqueda[] = {new Item("ID", "idEmpleado"), new Item("Nombre", "nombre"),
+	private final static Item filtrosBusqueda[] = {new Item("ID", "idEmpleado"), new Item("Nombre", "nombre"),
 		new Item("Apellido paterno", "apellidoPaterno"), new Item("Apellido materno", "apellidoMaterno"),
 		new Item("Género", "genero"), new Item("Domicilio", "domicilio"), new Item("Telefono", "telefono"),
 		new Item("RFC", "rfc"), new Item("Número de empleado", "numeroEmpleado"), new Item("Puesto", "puesto"),
 		new Item("Nombre de usuario", "nombreUsuario")};
 
-	private static Item filtrosEstatus[] = {new Item("Activos", "1"), new Item("Inactivos", "0")};
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -104,10 +103,10 @@ public class EmpleadosController implements Initializable {
 		columnAcciones.setCellValueFactory(new PropertyValueFactory<>("acciones"));
 
 		cmbBusqueda.getItems().setAll(filtrosBusqueda);
-		cmbEstatus.getItems().setAll(filtrosEstatus);
+		cmbEstatus.getItems().setAll(Utils.filtrosEstatus);
 
 		cmbBusqueda.setValue(filtrosBusqueda[0]);
-		cmbEstatus.setValue(filtrosEstatus[0]);
+		cmbEstatus.setValue(Utils.filtrosEstatus[0]);
 
 		cmbEstatus.setOnAction(e -> {
 			if (txtBusqueda.getText().trim().length() > 0) {

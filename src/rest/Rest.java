@@ -1,7 +1,10 @@
 package rest;
 
 import com.google.gson.Gson;
-import java.lang.reflect.Type;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -29,6 +32,16 @@ public class Rest {
 		return gson.fromJson(json, clase);
 	}
 
+	public static void agregarGet(String nombreModulo, String nuevoJson) {
+		try {
+			target = client.target(url).path(nombreModulo).path("insert").queryParam("new", URLEncoder.encode(nuevoJson, "UTF-8").replaceAll("\\+", "%20"));
+			json = target.request(MediaType.APPLICATION_JSON).get(String.class);
+			System.out.println(json);
+		} catch (UnsupportedEncodingException ex) {
+			Logger.getLogger(Rest.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
 	public static void agregarPost(String nombreModulo, String nuevoJson){
 		target = client.target(url).path(nombreModulo).path("insert");
 
@@ -49,6 +62,16 @@ public class Rest {
 		json = target.request(MediaType.APPLICATION_JSON).post(Entity.entity(form, MediaType.APPLICATION_FORM_URLENCODED_TYPE), String.class);
 
 		System.out.println(json);
+	}
+
+	public static void modificarGet(String nombreModulo, String nuevoJson){
+		try {
+			target = client.target(url).path(nombreModulo).path("update").queryParam("new", URLEncoder.encode(nuevoJson, "UTF-8").replaceAll("\\+", "%20"));
+			json = target.request(MediaType.APPLICATION_JSON).get(String.class);
+			System.out.println(json);
+		} catch (UnsupportedEncodingException ex) {
+			Logger.getLogger(Rest.class.getName()).log(Level.SEVERE, null, ex);
+		}
 	}
 
 	public static void eliminar(String nombreModulo, String id){

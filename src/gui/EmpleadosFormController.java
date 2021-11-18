@@ -84,7 +84,7 @@ public class EmpleadosFormController implements Initializable {
 			if (temp == null) {
 				alerta.setTitle("¿Quieres guardar el nuevo registro?");
 				alerta.setTextContent("");
-				alerta.setConfirmationButtonText("Si, gaurdarlo");
+				alerta.setConfirmationButtonText("Si, guardarlo");
 				alerta.setCancellationButtonText("No, Cancelar");
 
 				alerta.setConfirmationButtonAction(e -> {

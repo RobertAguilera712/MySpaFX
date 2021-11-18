@@ -7,22 +7,18 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.HBox;
 
 public class Empleado {
+
 	private int id;
-    private String numeroEmpleado;
-    private String puesto;
-    private String rutaFoto;
-    private String foto;
+	private String numeroEmpleado;
+	private String puesto;
+	private String rutaFoto;
+	private String foto;
 	private Persona persona;
 	private Usuario usuario;
-    private int estatus;
+	private int estatus;
 	private transient HBox acciones;
 
 	public Empleado() {
-		try {
-			this.acciones = (HBox)FXMLLoader.load(getClass().getResource("Acciones.fxml"));
-		} catch (IOException ex) {
-			Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
-		}
 	}
 
 	public Empleado(int id, String numeroEmpleado, String puesto, String rutaFoto, Persona persona, Usuario usuario, int estatus) {
@@ -35,35 +31,33 @@ public class Empleado {
 		this.estatus = estatus;
 	}
 
-	public String getNombre(){
+	public String getNombre() {
 		return this.persona.getNombre();
 	}
 
+	public String getApellidoP() {
+		return this.persona.getApellidoP();
+	}
 
-    public String getApellidoP() {
-        return this.persona.getApellidoP();
-    }
+	public String getApellidoM() {
+		return this.persona.getApellidoM();
+	}
 
+	public String getDomicilio() {
+		return this.persona.getDomicilio();
+	}
 
-    public String getApellidoM() {
-        return this.persona.getApellidoM();
-    }
+	public String getTelefono() {
+		return this.persona.getTelefono();
+	}
 
-    public String getDomicilio() {
-        return this.persona.getDomicilio();
-    }
+	public String getRfc() {
+		return this.persona.getRfc();
+	}
 
-    public String getTelefono() {
-        return this.persona.getTelefono();
-    }
-
-    public String getRfc() {
-        return this.persona.getRfc();
-    }
-
-    public String getGenero() {
-        return this.persona.getGenero();
-    }
+	public String getGenero() {
+		return this.persona.getGenero();
+	}
 
 	public int getEstatus() {
 		return estatus;
@@ -113,13 +107,13 @@ public class Empleado {
 		this.foto = foto;
 	}
 
-    public String getNombreUsu() {
-        return this.usuario.getNombreUsu();
-    }
+	public String getNombreUsu() {
+		return this.usuario.getNombreUsu();
+	}
 
-    public String getContrasenia() {
-        return this.usuario.getContrasenia();
-    }
+	public String getContrasenia() {
+		return this.usuario.getContrasenia();
+	}
 
 	public Persona getPersona() {
 		return persona;
@@ -137,13 +131,24 @@ public class Empleado {
 		this.usuario = usuario;
 	}
 
+	private void setAcciones() {
+		try {
+			this.acciones = (HBox) FXMLLoader.load(getClass().getResource("Acciones.fxml"));
+		} catch (IOException ex) {
+			Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
 	public HBox getAcciones() {
-		return this.acciones; 
+		if (this.acciones == null){
+			setAcciones();
+		}
+		return this.acciones;
 	}
 
 	@Override
 	public String toString() {
 		return "Empleado{" + "id=" + id + ", numeroEmpleado=" + numeroEmpleado + ", puesto=" + puesto + ", rutaFoto=" + rutaFoto + ", foto=" + foto + ", persona=" + persona + ", usuario=" + usuario + ", estatus=" + estatus + '}';
 	}
-    
+
 }
