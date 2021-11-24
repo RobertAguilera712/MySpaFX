@@ -19,6 +19,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import model.Empleado;
 import model.Item;
@@ -29,6 +30,9 @@ import utils.Checar;
 import utils.Utils;
 
 public class EmpleadosFormController implements Initializable {
+
+	@FXML
+    private Label txtTitulo;
 
 	@FXML
 	private JFXTextField txtNombre;
@@ -192,6 +196,10 @@ public class EmpleadosFormController implements Initializable {
 				break;
 			}
 		}
+	}
+
+	public void setTitulo(String titulo){
+		txtTitulo.setText(titulo);
 	}
 
 	private Empleado getEmpleado() {

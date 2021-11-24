@@ -17,6 +17,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import model.Empleado;
+import rest.Rest;
 import utils.Utils;
 
 public class LoginController implements Initializable {
@@ -53,17 +55,8 @@ public class LoginController implements Initializable {
 			} else {
 				OkAlert alert = new OkAlert(AlertIcon.ERROR, Utils.getCurrentWindow(event));
 				alert.setTitle("Datos de inicio de sesión incorrectos");
-				alert.setTextContent("El usuario o la contraseña son icorrectos. Por favor vuelve a intentarloo");
+				alert.setTextContent("El usuario o la contraseña son icorrectos. Por favor vuelve a intentarlo");
 				alert.showAndWait();
-				/*Alert container = new Alert(new AlertIcon("error", "bg-danger"), new AlertTitle("Datos de inicio de sesión incorrectos"), new AlertContent("El nombre de usuario o la contraseña no son correctos. Por favor intenta de nuevo"), new AlertBtnContainer());*/
-//				Alert content = new Alert(AlertIcon.ERROR);
-//				content.setTitle("Hola jaja");
-//				content.setTextContent("hola otra vez");
-//				alert.setContent(content);
-				/*container.getBtnContainer().getConfirmactionButton().setOnAction(event1 -> {
-					alert.close();
-				});*/
-
 			}
 
 		} else {
@@ -79,7 +72,9 @@ public class LoginController implements Initializable {
 		String username = txtUsuario.getText();
 		String password = txtPassword.getText();
 
-		return username.equals("admin") && password.equals("admin");
+		Empleado e = Rest.login(username, password);
+
+		return e != null;
 	}
 
 }

@@ -75,6 +75,9 @@ public class EmpleadosController implements Initializable {
 	private TableColumn<Empleado, String> columnUsuario;
 
 	@FXML
+    private TableColumn<Empleado, Integer> columnEstatus;
+
+	@FXML
 	private TableColumn<Empleado, HBox> columnAcciones;
 
 	private FXMLLoader loader;
@@ -100,6 +103,7 @@ public class EmpleadosController implements Initializable {
 		columnPuesto.setCellValueFactory(new PropertyValueFactory<>("puesto"));
 		columnFoto.setCellValueFactory(new PropertyValueFactory<>("foto"));
 		columnUsuario.setCellValueFactory(new PropertyValueFactory<>("nombreUsu"));
+		columnEstatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
 		columnAcciones.setCellValueFactory(new PropertyValueFactory<>("acciones"));
 
 		cmbBusqueda.getItems().setAll(filtrosBusqueda);
@@ -160,7 +164,7 @@ public class EmpleadosController implements Initializable {
 			String estatus = cmbEstatus.getValue().getValor();
 			String filtroBusqueda = cmbBusqueda.getValue().getValor();
 			String consulta = txtBusqueda.getText().trim();
-			// 	nombre LIKE "%luis%" 
+			// nombre LIKE "%luis%" 
 			// %% = % en String
 			// %s = placeholder donde va a ir un string que le pasemos como parametros
 			// %%25 = % en un URL
@@ -191,6 +195,7 @@ public class EmpleadosController implements Initializable {
 			nodo = loader.load();
 			formController = loader.getController();
 			formController.setEmpleado(empleado);
+			formController.setTitulo("Modificar Empleado");
 			mainContainer.setContent(nodo);
 		} catch (IOException ex) {
 			Logger.getLogger(EmpleadosController.class.getName()).log(Level.SEVERE, null, ex);

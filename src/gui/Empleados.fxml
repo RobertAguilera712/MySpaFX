@@ -49,6 +49,7 @@
             <TableColumn fx:id="columnPuesto" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Puesto" />
             <TableColumn fx:id="columnFoto" maxWidth="-1.0" minWidth="100.0" prefWidth="-1.0" resizable="false" text="Foto" />
             <TableColumn fx:id="columnUsuario" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Usuario" />
+            <TableColumn fx:id="columnEstatus" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" resizable="false" text="Estatus" />
             <TableColumn fx:id="columnAcciones" maxWidth="-1.0" minWidth="300.0" prefWidth="-1.0" resizable="false" text="Acciones" />
          </columns>
          <padding>
