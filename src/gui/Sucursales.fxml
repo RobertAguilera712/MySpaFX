@@ -50,6 +50,9 @@
             <TableColumn fx:id="columnEstatus" maxWidth="-1.0" minWidth="150.0" prefWidth="-1.0" text="Estatus" />
             <TableColumn fx:id="columnAcciones" maxWidth="-1.0" minWidth="300.0" prefWidth="-1.0" text="Acciones" />
         </columns>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
       </TableView>
    </children>
 </VBox>

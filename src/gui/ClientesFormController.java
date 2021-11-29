@@ -21,8 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.image.ImageView;
-import model.Empleado;
+import model.Cliente;
 import model.Item;
 import model.Persona;
 import model.Usuario;
@@ -30,51 +29,46 @@ import rest.Rest;
 import utils.Checar;
 import utils.Utils;
 
-public class EmpleadosFormController implements Initializable {
+public class ClientesFormController implements Initializable {
 
-	@FXML
-	private Label txtTitulo;
+	 @FXML
+    private Label txtTitulo;
 
-	@FXML
-	private JFXTextField txtNombre;
+    @FXML
+    private JFXTextField txtNombre;
 
-	@FXML
-	private JFXTextField txtApellido1;
+    @FXML
+    private JFXTextField txtApellido1;
 
-	@FXML
-	private JFXTextField txtApellido2;
+    @FXML
+    private JFXTextField txtApellido2;
 
-	@FXML
-	private JFXTextField txtDomicilio;
+    @FXML
+    private JFXTextField txtDomicilio;
 
-	@FXML
-	private JFXComboBox<Item> cmbGenero;
+    @FXML
+    private JFXComboBox<Item> cmbGenero;
 
-	@FXML
-	private JFXTextField txtRfc;
+    @FXML
+    private JFXTextField txtRfc;
 
-	@FXML
-	private JFXTextField txtTelefono;
+    @FXML
+    private JFXTextField txtTelefono;
 
-	@FXML
-	private JFXTextField txtPuesto;
+    @FXML
+    private JFXTextField txtCorreo;
 
-	@FXML
-	private JFXTextField txtUsuario;
+    @FXML
+    private JFXTextField txtUsuario;
 
-	@FXML
-	private JFXPasswordField txtPassword;
+    @FXML
+    private JFXPasswordField txtPassword;
 
-	@FXML
-	private Label lbImg;
-
-	@FXML
-	private ImageView selectedImg;
 
 	private static final Item generos[] = {new Item("Selecciona el género", ""), new Item("Masculino", "M"), new Item("Femenino", "F"), new Item("Otro", "O")};
 
 	private Gson gson;
-	private Empleado temp;
+	private Cliente temp;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -87,7 +81,7 @@ public class EmpleadosFormController implements Initializable {
 	@FXML
 	void guardar(ActionEvent event) {
 		String mensajeError = Checar.checarInputsTexto(txtNombre, txtApellido1, txtApellido2, txtDomicilio,
-				txtPassword, txtPuesto, txtRfc, txtTelefono, txtUsuario)
+				txtPassword, txtCorreo, txtRfc, txtTelefono, txtUsuario)
 				+ Checar.checarCombos(cmbGenero);
 
 		if (mensajeError.isEmpty()) {
@@ -99,8 +93,8 @@ public class EmpleadosFormController implements Initializable {
 				alerta.setCancellationButtonText("No, Cancelar");
 
 				alerta.setConfirmationButtonAction(e -> {
-					Empleado nuevoEmpleado = getEmpleado();
-					Rest.agregarPost("employee", gson.toJson(nuevoEmpleado));
+					Cliente nuevoCliente = getCliente();
+					Rest.agregarPost("cliente", gson.toJson(nuevoCliente));
 					WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(event));
 					waitAlert.setTitle("Registro guardado");
 					waitAlert.setTextContent("El nuevo registro se guardó correctamente");
@@ -124,16 +118,16 @@ public class EmpleadosFormController implements Initializable {
 				alerta.setCancellationButtonText("No, Cancelar");
 
 				alerta.setConfirmationButtonAction(e -> {
-					Empleado nuevoEmpleado = getEmpleado();
-					nuevoEmpleado.setId(temp.getId());
-					nuevoEmpleado.getPersona().setId(temp.getPersona().getId());
-					nuevoEmpleado.getUsuario().setId(temp.getUsuario().getId());
+					Cliente nuevoCliente = getCliente();
+					nuevoCliente.setId(temp.getId());
+					nuevoCliente.getPersona().setId(temp.getPersona().getId());
+					nuevoCliente.getUsuario().setId(temp.getUsuario().getId());
 
-					String json = gson.toJson(nuevoEmpleado);
+					String json = gson.toJson(nuevoCliente);
 
 					System.out.println(json);
 
-					Rest.modificarPost("employee", json);
+					Rest.modificarPost("cliente", json);
 					WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(event));
 					waitAlert.setTitle("Registro modificado correctamente");
 					waitAlert.setTextContent("El registro se modificó correctamente");
@@ -141,7 +135,7 @@ public class EmpleadosFormController implements Initializable {
 					try {
 						regresar(event);
 					} catch (IOException ex) {
-						Logger.getLogger(EmpleadosFormController.class.getName()).log(Level.SEVERE, null, ex);
+						Logger.getLogger(ClientesFormController.class.getName()).log(Level.SEVERE, null, ex);
 					}
 				});
 
@@ -168,19 +162,10 @@ public class EmpleadosFormController implements Initializable {
 	void regresar(ActionEvent event) throws IOException {
 		Scene currentScene = Utils.getCurrentScene(event);
 		ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
-		Node nodo = FXMLLoader.load((getClass().getResource("Empleados.fxml")));
+		Node nodo = FXMLLoader.load((getClass().getResource("Clientes.fxml")));
 		mainContainer.setContent(nodo);
 	}
 
-	@FXML
-	void selectImg(ActionEvent event) {
-		try {
-			selectedImg.setImage(Utils.readImage());
-			lbImg.setText("");
-		} catch (Exception e) {
-			System.out.println(e.toString());
-		}
-	}
 
 	private void limpiarForm() {
 		txtApellido1.setText("");
@@ -188,35 +173,27 @@ public class EmpleadosFormController implements Initializable {
 		txtDomicilio.setText("");
 		txtNombre.setText("");
 		txtPassword.setText("");
-		txtPuesto.setText("");
+		txtCorreo.setText("");
 		txtRfc.setText("");
 		txtTelefono.setText("");
 		txtUsuario.setText("");
 		cmbGenero.setValue(generos[0]);
-		selectedImg.setImage(null);
-		lbImg.setText("No has seleccionando\n"
-				+ "ninguna imagen");
 	}
 
-	public void setEmpleado(Empleado e) {
-		this.temp = e;
-		txtApellido1.setText(e.getApellidoP());
-		txtApellido2.setText(e.getApellidoM());
-		txtDomicilio.setText(e.getDomicilio());
-		txtNombre.setText(e.getNombre());
-		txtPassword.setText(e.getContrasenia());
-		txtPuesto.setText(e.getPuesto());
-		txtRfc.setText(e.getRfc());
-		txtTelefono.setText(e.getTelefono());
-		txtUsuario.setText(e.getNombreUsu());
-		
-		if (!e.getFotoString().isEmpty()){
-			selectedImg.setImage(Utils.decodeImage(e.getFotoString()));
-			lbImg.setText("");
-		}
+	public void setCliente(Cliente c) {
+		this.temp = c;
+		txtApellido1.setText(c.getApellidoP());
+		txtApellido2.setText(c.getApellidoM());
+		txtDomicilio.setText(c.getDomicilio());
+		txtNombre.setText(c.getNombre());
+		txtPassword.setText(c.getContrasenia());
+		txtCorreo.setText(c.getCorreo());
+		txtRfc.setText(c.getRfc());
+		txtTelefono.setText(c.getTelefono());
+		txtUsuario.setText(c.getNombreUsu());
 
 		for (Item item : generos) {
-			if (item.getValor().equalsIgnoreCase(e.getGenero())) {
+			if (item.getValor().equalsIgnoreCase(c.getGenero())) {
 				cmbGenero.setValue(item);
 				break;
 			}
@@ -227,8 +204,8 @@ public class EmpleadosFormController implements Initializable {
 		txtTitulo.setText(titulo);
 	}
 
-	private Empleado getEmpleado() {
-		Empleado empleado = new Empleado();
+	private Cliente getCliente() {
+		Cliente cliente = new Cliente();
 		Persona persona = new Persona();
 		Usuario usuario = new Usuario();
 
@@ -242,14 +219,13 @@ public class EmpleadosFormController implements Initializable {
 
 		usuario.setNombreUsu(txtUsuario.getText());
 		usuario.setContrasenia(txtPassword.getText());
-		usuario.setRol(txtPuesto.getText());
+		usuario.setRol("Cliente");
 
-		empleado.setEstatus(1);
-		empleado.setPuesto(txtPuesto.getText());
-		empleado.setPersona(persona);
-		empleado.setFoto(Utils.encodeImage(selectedImg.getImage()));
-		empleado.setUsuario(usuario);
+		cliente.setCorreo(txtCorreo.getText());
+		cliente.setEstatus(1);
+		cliente.setPersona(persona);
+		cliente.setUsuario(usuario);
 
-		return empleado;
+		return cliente;
 	}
 }

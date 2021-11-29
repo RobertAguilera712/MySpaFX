@@ -59,6 +59,8 @@ public class Rest {
 	public static void agregarPost(String nombreModulo, String nuevoJson){
 		target = CLIENT.target(URL).path(nombreModulo).path("insert");
 
+		System.out.println(nuevoJson);
+
 		Form form = new Form();
 		form.param("new", nuevoJson);
 

@@ -1,10 +1,15 @@
 package model;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.Base64;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import utils.Utils;
 
 public class Empleado {
 
@@ -99,8 +104,21 @@ public class Empleado {
 		this.rutaFoto = rutaFoto;
 	}
 
-	public String getFoto() {
+	public String getFotoString() {
 		return foto;
+	}
+
+	public ImageView getFoto(){
+		if (this.foto.isEmpty()){
+			return null;
+		}
+
+		ImageView img =new ImageView(Utils.decodeImage(this.foto));
+		img.setFitWidth(50);
+		img.setFitHeight(50);
+		img.setPreserveRatio(true);
+
+		return img;
 	}
 
 	public void setFoto(String foto) {

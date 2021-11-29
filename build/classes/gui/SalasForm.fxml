@@ -2,32 +2,47 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
 <?import java.net.URL?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SalasFormController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="443.0" prefWidth="846.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SalasFormController">
    <children>
-      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308">
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <children>
             <Label styleClass="h1" text="Agregar sala" />
          </children>
       </HBox>
-      <HBox alignment="CENTER" layoutX="10.0" layoutY="10.0" maxHeight="1.7976931348623157E308" spacing="20.0">
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="40.0">
          <children>
-            <JFXTextField promptText="Nombre" styleClass="input" />
-            <JFXComboBox promptText="Selecciona una sucursal" styleClass="input" />
-            <JFXTextField layoutX="10.0" layoutY="10.0" promptText="Ruta imagen" styleClass="input" />
+            <JFXTextField fx:id="txtNombre" promptText="Nombre" styleClass="input" />
+            <JFXTextField fx:id="txtDescripcion" layoutX="327.0" layoutY="10.0" promptText="Descripción" styleClass="input" />
+            <JFXComboBox fx:id="cmbSucursal" promptText="Sucursal" styleClass="input" />
+            <JFXButton maxWidth="212.0" minWidth="212.0" onAction="#selectImg" prefWidth="212.0" text="Cargar imagen">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-secondary" />
+               </styleClass>
+            </JFXButton>
+            <Label fx:id="lbImg" contentDisplay="CENTER" maxWidth="212.0" minWidth="212.0" prefWidth="212.0" text="No has seleccionando&#10;ninguna imagen" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fx:id="selectedImg" fitHeight="50.0" fitWidth="212.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Label>
          </children>
-      </HBox>
-      <JFXTextArea promptText="Descripción" styleClass="input" />
-      <HBox alignment="CENTER" layoutX="10.0" layoutY="82.0" maxHeight="1.7976931348623157E308" spacing="20.0">
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </FlowPane>
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" spacing="20.0" VBox.vgrow="ALWAYS">
          <children>
-            <JFXButton text="Guardar">
+            <JFXButton onAction="#guardar" text="Guardar">
                <styleClass>
                   <String fx:value="btn" />
                   <String fx:value="btn-primary" />

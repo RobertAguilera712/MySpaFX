@@ -21,14 +21,14 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import model.Cliente;
 import model.Item;
-import model.Sala;
 import rest.Rest;
 import utils.Utils;
 
-public class SalasController implements Initializable {
+public class ClientesController implements Initializable {
 
-	   @FXML
+	 @FXML
     private JFXComboBox<Item> cmbBusqueda;
 
     @FXML
@@ -38,7 +38,7 @@ public class SalasController implements Initializable {
     private JFXComboBox<Item> cmbEstatus;
 
     @FXML
-    private TableView<Sala> tablaSalas;
+    private TableView<Cliente> tablaClientes;
 
     @FXML
     private TableColumn<?, ?> columnId;
@@ -47,34 +47,62 @@ public class SalasController implements Initializable {
     private TableColumn<?, ?> columnNombre;
 
     @FXML
-    private TableColumn<?, ?> columnDescripcion;
+    private TableColumn<?, ?> columnApellido1;
 
     @FXML
-    private TableColumn<?, ?> columnFoto;
+    private TableColumn<?, ?> columnApellido2;
 
     @FXML
-    private TableColumn<?, ?> columnSucursal;
+    private TableColumn<?, ?> columnGenero;
+
+    @FXML
+    private TableColumn<?, ?> columnDomicilio;
+
+    @FXML
+    private TableColumn<?, ?> columnTelefono;
+
+    @FXML
+    private TableColumn<?, ?> columnRFC;
+
+    @FXML
+    private TableColumn<?, ?> columnNumeroUni;
+
+    @FXML
+    private TableColumn<?, ?> columnCorreo;
+
+    @FXML
+    private TableColumn<?, ?> columnUsuario;
 
     @FXML
     private TableColumn<?, ?> columnEstatus;
 
     @FXML
     private TableColumn<?, ?> columnAcciones;
-	
 
 	private FXMLLoader loader;
-	private SalasFormController formController;
+	private ClientesFormController formController;
 
-	private final static Item filtrosBusqueda[] = {new Item("ID", "idSala"), new Item("Nombre", "nombreSala"), new Item("Descripcion", "descripcion"), new Item("Nombre de sucursal", "nombre")};
+	private final static Item filtrosBusqueda[] = {new Item("ID", "idCliente"), new Item("Nombre", "nombre"),
+		new Item("Apellido paterno", "apellidoPaterno"), new Item("Apellido materno", "apellidoMaterno"),
+		new Item("Género", "genero"), new Item("Domicilio", "domicilio"), new Item("Telefono", "telefono"),
+		new Item("RFC", "rfc"), new Item("Número único", "numeroUni"), new Item("Correo", "correo"),
+		new Item("Nombre de usuario", "nombreUsuario")};
+
 
 	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+	public void initialize(URL location, ResourceBundle resources) {
 		columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
 		columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-		columnDescripcion.setCellValueFactory(new PropertyValueFactory<>("descripcion"));
-		columnFoto.setCellValueFactory(new PropertyValueFactory<>("foto"));
-		columnSucursal.setCellValueFactory(new PropertyValueFactory<>("sucursalNombre"));
+		columnApellido1.setCellValueFactory(new PropertyValueFactory<>("apellidoP"));
+		columnApellido2.setCellValueFactory(new PropertyValueFactory<>("apellidoM"));
+		columnGenero.setCellValueFactory(new PropertyValueFactory<>("genero"));
+		columnDomicilio.setCellValueFactory(new PropertyValueFactory<>("domicilio"));
+		columnTelefono.setCellValueFactory(new PropertyValueFactory<>("telefono"));
+		columnRFC.setCellValueFactory(new PropertyValueFactory<>("rfc"));
+		columnUsuario.setCellValueFactory(new PropertyValueFactory<>("nombreUsu"));
 		columnEstatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
+		columnCorreo.setCellValueFactory(new PropertyValueFactory<>("correo"));
+		columnNumeroUni.setCellValueFactory(new PropertyValueFactory<>("numeroUni"));
 		columnAcciones.setCellValueFactory(new PropertyValueFactory<>("acciones"));
 
 		cmbBusqueda.getItems().setAll(filtrosBusqueda);
@@ -102,17 +130,32 @@ public class SalasController implements Initializable {
 		});
 
 		llenarTabla();
-	}	
 
-	private void llenarTabla(){
+	}
+
+	private void llenarTabla() {
 		try {
 			String estatus = cmbEstatus.getValue().getValor();
-			Sala salas[] = Rest.obtenerRegistros("room", estatus, Sala[].class);
-			tablaSalas.getItems().setAll(salas);
+			Cliente clientes[] = Rest.obtenerRegistros("cliente", estatus, Cliente[].class);
+			tablaClientes.getItems().setAll(clientes);
 			ponerAcciones();
 		} catch (Exception e) {
 			System.out.println(e.toString());
 		}
+	}
+
+	private void ponerAcciones() {
+		tablaClientes.getItems().forEach(c -> {
+			// Modificar
+			((JFXButton) c.getAcciones().getChildren().get(0)).setOnAction(event -> {
+				modificar(c, event);
+			});
+
+			// Eliminar
+			((JFXButton) c.getAcciones().getChildren().get(1)).setOnAction(event -> {
+				eliminar(String.valueOf(c.getId()), event);
+			});
+		});
 	}
 
 	private void buscar() {
@@ -120,9 +163,13 @@ public class SalasController implements Initializable {
 			String estatus = cmbEstatus.getValue().getValor();
 			String filtroBusqueda = cmbBusqueda.getValue().getValor();
 			String consulta = txtBusqueda.getText().trim();
+			// nombre LIKE "%luis%" 
+			// %% = % en String
+			// %s = placeholder donde va a ir un string que le pasemos como parametros
+			// %%25 = % en un URL
 			String filtro = String.format("%s LIKE \"%%25%s%%25\"", filtroBusqueda, consulta);
-			Sala salas[] = Rest.buscar("room", estatus, filtro, Sala[].class);
-			tablaSalas.getItems().setAll(salas);
+			Cliente clientes[] = Rest.buscar("cliente", estatus, filtro, Cliente[].class);
+			tablaClientes.getItems().setAll(clientes);
 			ponerAcciones();
 		} catch (Exception e) {
 			System.out.println(e.toString());
@@ -130,32 +177,27 @@ public class SalasController implements Initializable {
 
 	}
 
-	private void ponerAcciones() {
-		tablaSalas.getItems().forEach(s -> {
-//			 Modificar
-			((JFXButton) s.getAcciones().getChildren().get(0)).setOnAction(event -> {
-				modificar(s, event);
-			});
-
-			// Eliminar
-			((JFXButton) s.getAcciones().getChildren().get(1)).setOnAction(event -> {
-				eliminar(String.valueOf(s.getId()), event);
-			});
-		});
+	@FXML
+	void agregar(ActionEvent event) throws IOException {
+		Scene currentScene = Utils.getCurrentScene(event);
+		ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
+		Node nodo = FXMLLoader.load(getClass().getResource("ClientesForm.fxml"));
+		mainContainer.setContent(nodo);
 	}
 
-	private void modificar(Sala sala, ActionEvent e) {
+	private void modificar(Cliente cliente, ActionEvent e) {
 		try {
 			Scene currentScene = Utils.getCurrentScene(e);
 			ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
-			loader = new FXMLLoader(getClass().getResource("SalasForm.fxml"));
+			loader = new FXMLLoader(getClass().getResource("ClientesForm.fxml"));
 			Node nodo;
 			nodo = loader.load();
 			formController = loader.getController();
-			formController.setSala(sala);
+			formController.setCliente(cliente);
+			formController.setTitulo("Modificar cliente");
 			mainContainer.setContent(nodo);
 		} catch (IOException ex) {
-			Logger.getLogger(EmpleadosController.class.getName()).log(Level.SEVERE, null, ex);
+			Logger.getLogger(ClientesController.class.getName()).log(Level.SEVERE, null, ex);
 		}
 	}
 
@@ -174,7 +216,7 @@ public class SalasController implements Initializable {
 		});
 
 		alert.setConfirmationButtonAction(event -> {
-			Rest.eliminar("room", id);
+			Rest.eliminar("cliente", id);
 			llenarTabla();
 			WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(e));
 			waitAlert.setTitle("Registro eliminado");
@@ -185,12 +227,4 @@ public class SalasController implements Initializable {
 		alert.showAndWait();
 	}
 
-    @FXML
-    void agregar(ActionEvent event) throws IOException {
-		Scene currentScene = Utils.getCurrentScene(event);
-		ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
-		Node nodo = FXMLLoader.load(getClass().getResource("SalasForm.fxml"));
-		mainContainer.setContent(nodo);
-    }
-	
 }

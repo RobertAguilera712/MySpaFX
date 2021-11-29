@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import java.lang.String?>
 <?import java.net.URL?>
@@ -10,25 +12,31 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="443.0" prefWidth="846.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SucursalesFormController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="443.0" prefWidth="846.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ClientesFormController">
    <children>
       <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
          <children>
-            <Label styleClass="h1" text="Agregar sucursal" />
+            <Label fx:id="txtTitulo" styleClass="h1" text="Agregar cliente" />
          </children>
       </HBox>
       <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="40.0">
          <children>
             <JFXTextField fx:id="txtNombre" promptText="Nombre" styleClass="input" />
-            <JFXTextField fx:id="txtDomicilio" layoutX="327.0" layoutY="10.0" promptText="Domicilio" styleClass="input" />
-            <JFXTextField fx:id="txtLatitud" layoutX="443.0" layoutY="10.0" promptText="Latitud" styleClass="input" />
-            <JFXTextField fx:id="txtLongitud" layoutX="559.0" layoutY="10.0" promptText="Longitud" styleClass="input" />
+            <JFXTextField fx:id="txtApellido1" layoutX="10.0" layoutY="10.0" promptText="Apellido paterno" styleClass="input" />
+            <JFXTextField fx:id="txtApellido2" layoutX="262.0" layoutY="10.0" promptText="Apellido materno" styleClass="input" />
+            <JFXTextField fx:id="txtDomicilio" layoutX="494.0" layoutY="10.0" promptText="Domicilio" styleClass="input" />
+            <JFXComboBox fx:id="cmbGenero" promptText="Género" styleClass="input" />
+            <JFXTextField fx:id="txtRfc" layoutX="262.0" layoutY="66.0" promptText="RFC" styleClass="input" />
+            <JFXTextField fx:id="txtTelefono" layoutX="509.0" layoutY="66.0" promptText="Teléfono" styleClass="input" />
+            <JFXTextField fx:id="txtCorreo" layoutX="327.0" layoutY="122.0" promptText="Correo" styleClass="input" />
+            <JFXTextField fx:id="txtUsuario" layoutX="443.0" layoutY="122.0" promptText="Usuario" styleClass="input" />
+            <JFXPasswordField fx:id="txtPassword" promptText="Contraseña" styleClass="input" />
          </children>
          <padding>
             <Insets left="20.0" right="20.0" />
          </padding>
       </FlowPane>
-      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" spacing="20.0" VBox.vgrow="ALWAYS">
+      <HBox alignment="CENTER" layoutX="10.0" layoutY="82.0" maxHeight="1.7976931348623157E308" spacing="20.0" VBox.vgrow="ALWAYS">
          <children>
             <JFXButton onAction="#guardar" text="Guardar">
                <styleClass>

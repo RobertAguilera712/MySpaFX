@@ -1,10 +1,17 @@
 package model;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.layout.HBox;
+
 public class Cliente {
     private int id, estatus;
     private String numeroUni, correo;
     private Persona persona;
     private Usuario usuario;
+	private transient HBox acciones;
 
     public Cliente() {
     }
@@ -25,6 +32,34 @@ public class Cliente {
         this.persona = persona;
         this.usuario = usuario;
     }
+
+	public String getNombre() {
+		return this.persona.getNombre();
+	}
+
+	public String getApellidoP() {
+		return this.persona.getApellidoP();
+	}
+
+	public String getApellidoM() {
+		return this.persona.getApellidoM();
+	}
+
+	public String getDomicilio() {
+		return this.persona.getDomicilio();
+	}
+
+	public String getTelefono() {
+		return this.persona.getTelefono();
+	}
+
+	public String getRfc() {
+		return this.persona.getRfc();
+	}
+
+	public String getGenero() {
+		return this.persona.getGenero();
+	}
 
     public Usuario getUsuario() {
         return usuario;
@@ -49,6 +84,14 @@ public class Cliente {
     public void setEstatus(int estatus) {
         this.estatus = estatus;
     }
+	
+	public String getNombreUsu() {
+		return this.usuario.getNombreUsu();
+	}
+
+	public String getContrasenia() {
+		return this.usuario.getContrasenia();
+	}
 
     public String getNumeroUni() {
         return numeroUni;
@@ -73,6 +116,21 @@ public class Cliente {
     public void setPersona(Persona persona) {
         this.persona = persona;
     }
+
+	private void setAcciones() {
+		try {
+			this.acciones = (HBox) FXMLLoader.load(getClass().getResource("Acciones.fxml"));
+		} catch (IOException ex) {
+			Logger.getLogger(Empleado.class.getName()).log(Level.SEVERE, null, ex);
+		}
+	}
+
+	public HBox getAcciones() {
+		if (this.acciones == null){
+			setAcciones();
+		}
+		return this.acciones;
+	}
 
     @Override
     public String toString() {

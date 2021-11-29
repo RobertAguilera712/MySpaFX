@@ -8,6 +8,7 @@
 <?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -31,6 +32,17 @@
             <JFXTextField fx:id="txtPuesto" layoutX="327.0" layoutY="122.0" promptText="Puesto" styleClass="input" />
             <JFXTextField fx:id="txtUsuario" layoutX="443.0" layoutY="122.0" promptText="Usuario" styleClass="input" />
             <JFXPasswordField fx:id="txtPassword" promptText="Contraseña" styleClass="input" />
+            <JFXButton maxWidth="212.0" minWidth="212.0" onAction="#selectImg" prefWidth="212.0" text="Cargar imagen">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-secondary" />
+               </styleClass>
+            </JFXButton>
+            <Label fx:id="lbImg" contentDisplay="CENTER" maxWidth="212.0" minWidth="212.0" prefWidth="212.0" text="No has seleccionando&#10;ninguna imagen" textAlignment="CENTER">
+               <graphic>
+                  <ImageView fx:id="selectedImg" fitHeight="50.0" fitWidth="212.0" pickOnBounds="true" preserveRatio="true" />
+               </graphic>
+            </Label>
          </children>
          <padding>
             <Insets left="20.0" right="20.0" />

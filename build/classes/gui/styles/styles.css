@@ -13,6 +13,7 @@
 	-fx-color-danger: #dc3545;
 	-fx-color-success: #157347;
 	-fx-color-primary: #0b5ed7;
+	-fx-color-secondary: #6c757d;
 }
 
 .text-white{
@@ -146,6 +147,12 @@
 	-fx-border-color: #0a58ca;
 }
 
+.btn-secondary{
+	-fx-background-color: -fx-color-secondary;
+	-fx-text-fill: #fff;
+	-fx-border-color: #6c757d;
+}
+
 .input{
 	-jfx-unfocus-color: #ced4da;
 	-jfx-focus-color: #0d6efd;
@@ -193,6 +200,7 @@
 	-fx-border-style: solid;
 	-fx-border-color: rgb(221, 221, 221);
 	-fx-border-width: 1px;
+	-fx-alignment: CENTER;
 }
 
 .alert-container{

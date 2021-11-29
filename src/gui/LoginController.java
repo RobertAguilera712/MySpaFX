@@ -23,6 +23,10 @@ import utils.Utils;
 
 public class LoginController implements Initializable {
 
+	enum Estatus {
+		OK, ERROR, INCORRECTO;
+	}
+
 	@FXML
 	private JFXTextField txtUsuario;
 
@@ -42,8 +46,8 @@ public class LoginController implements Initializable {
 		// If message is empty that means that field were filled
 		if (errorMessage.isEmpty()) {
 
-			if (checkCredentials()) {
-				// Go to the dashboard
+			switch (checkCredentials()) {
+				case OK:
 				try {
 					Parent newWindow = FXMLLoader.load(getClass().getResource("MainDashboard.fxml"));
 					Scene currentWindow = ((Node) event.getTarget()).getScene();
@@ -51,14 +55,20 @@ public class LoginController implements Initializable {
 				} catch (IOException ex) {
 					Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
 				}
-
-			} else {
-				OkAlert alert = new OkAlert(AlertIcon.ERROR, Utils.getCurrentWindow(event));
-				alert.setTitle("Datos de inicio de sesión incorrectos");
-				alert.setTextContent("El usuario o la contraseña son icorrectos. Por favor vuelve a intentarlo");
-				alert.showAndWait();
+				break;
+				case ERROR:
+					OkAlert alertError = new OkAlert(AlertIcon.ERROR, txtPassword.getScene().getWindow());
+					alertError.setTitle("Erro de conexión");
+					alertError.setTextContent("No se pudo establecer conexión con el servidor. Por favor intentalo más tarde");
+					alertError.showAndWait();
+					break;
+				case INCORRECTO:
+					OkAlert alert = new OkAlert(AlertIcon.ERROR, Utils.getCurrentWindow(event));
+					alert.setTitle("Datos de inicio de sesión incorrectos");
+					alert.setTextContent("El usuario o la contraseña son icorrectos. Por favor vuelve a intentarlo");
+					alert.showAndWait();
+					break;
 			}
-
 		} else {
 			OkAlert alert = new OkAlert(AlertIcon.WARNING, Utils.getCurrentWindow(event));
 			alert.setTitle("No has llenado todos los campos");
@@ -68,13 +78,24 @@ public class LoginController implements Initializable {
 
 	}
 
-	private boolean checkCredentials() {
+	private Estatus checkCredentials() {
 		String username = txtUsuario.getText();
 		String password = txtPassword.getText();
 
-		Empleado e = Rest.login(username, password);
+		Empleado e;
 
-		return e != null;
+		try {
+			e = Rest.login(username, password);
+		} catch (Exception ex) {
+			return Estatus.ERROR;
+		}
+
+		if (e != null) {
+			Utils.cuentaEmpleado = e;
+			return Estatus.OK;
+		}
+
+		return Estatus.INCORRECTO;
 	}
 
 }
