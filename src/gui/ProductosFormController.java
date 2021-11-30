@@ -1,45 +1,43 @@
 package gui;
 
 import com.google.gson.Gson;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 import com.jfoenix.controls.JFXTextField;
 import gui.Alerts.AlertIcon;
 import gui.Alerts.ConfirmationAlert;
 import gui.Alerts.OkAlert;
 import gui.Alerts.WaitAlert;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
-import model.Sucursal;
+import model.Producto;
 import rest.Rest;
 import utils.Checar;
 import utils.Utils;
 
-public class SucursalesFormController implements Initializable {
 
+public class ProductosFormController implements Initializable {
+    
     @FXML
     private JFXTextField txtNombre;
 
     @FXML
-    private JFXTextField txtDomicilio;
+    private JFXTextField txtMarca;
 
     @FXML
-    private JFXTextField txtLatitud;
-
-    @FXML
-    private JFXTextField txtLongitud;
-
+    private JFXTextField txtPrecioUso;
+    
     private Gson gson;
-    private Sucursal temp;
-
+    private Producto temp;
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gson = new Gson();
@@ -48,7 +46,7 @@ public class SucursalesFormController implements Initializable {
 
     @FXML
     void guardar(ActionEvent event) {
-        String mensajeError = Checar.checarInputsTexto(txtNombre, txtDomicilio, txtLatitud, txtLongitud);
+        String mensajeError = Checar.checarInputsTexto(txtNombre, txtMarca, txtPrecioUso);
 
         if (mensajeError.isEmpty()) {
             ConfirmationAlert alerta = new ConfirmationAlert(AlertIcon.QUESTION, Utils.getCurrentWindow(event));
@@ -59,8 +57,8 @@ public class SucursalesFormController implements Initializable {
                 alerta.setCancellationButtonText("No, Cancelar");
 
                 alerta.setConfirmationButtonAction(e -> {
-                    Sucursal nuevaSucursal = getSucursal();
-                    Rest.agregarGet("branch", gson.toJson(nuevaSucursal));
+                    Producto nuevoProducto = getProducto();
+                    Rest.agregarGet("product", gson.toJson(nuevoProducto));
                     WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(event));
                     waitAlert.setTitle("Registro guardado");
                     waitAlert.setTextContent("El nuevo registro se guardó correctamente");
@@ -84,12 +82,12 @@ public class SucursalesFormController implements Initializable {
                 alerta.setCancellationButtonText("No, Cancelar");
 
                 alerta.setConfirmationButtonAction(e -> {
-                    Sucursal nuevaSucursal = getSucursal();
-                    nuevaSucursal.setId(temp.getId());
+                    Producto nuevoProducto = getProducto();
+                    nuevoProducto.setId(temp.getId());
 
-                    String json = gson.toJson(nuevaSucursal);
+                    String json = gson.toJson(nuevoProducto);
 
-                    Rest.modificarGet("branch", json);
+                    Rest.modificarGet("product", json);
                     WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(event));
                     waitAlert.setTitle("Registro modificado correctamente");
                     waitAlert.setTextContent("El registro se modificó correctamente");
@@ -116,44 +114,40 @@ public class SucursalesFormController implements Initializable {
         }
 
     }
-
+    
     @FXML
     void regresar(ActionEvent event) {
         try {
             Scene currentScene = Utils.getCurrentScene(event);
             ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
-            Node nodo = FXMLLoader.load((getClass().getResource("Sucursales.fxml")));
+            Node nodo = FXMLLoader.load((getClass().getResource("Productos.fxml")));
             mainContainer.setContent(nodo);
         } catch (IOException ex) {
-            Logger.getLogger(SucursalesFormController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProductosFormController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
     private void limpiarForm() {
-        txtDomicilio.setText("");
         txtNombre.setText("");
-        txtLatitud.setText("");
-        txtLongitud.setText("");
+        txtMarca.setText("");
+        txtPrecioUso.setText("");
     }
 
-    public void setSucursal(Sucursal s) {
-        this.temp = s;
-        txtNombre.setText(s.getNombre());
-        txtDomicilio.setText(s.getDomicilio());
-        txtLatitud.setText(String.valueOf(s.getLatitud()));
-        txtLongitud.setText(String.valueOf(s.getLatitud()));
+    public void setProducto(Producto p) {
+        this.temp = p;
+        txtNombre.setText(p.getNombre());
+        txtMarca.setText(p.getMarca());
+        txtPrecioUso.setText(String.valueOf(p.getPrecioUso()));
     }
 
-    private Sucursal getSucursal() {
-        Sucursal sucursal = new Sucursal();
+    private Producto getProducto() {
+        Producto producto = new Producto();
 
-        sucursal.setNombre(txtNombre.getText());
-        sucursal.setDomicilio(txtDomicilio.getText());
-        sucursal.setLatitud(Double.parseDouble(txtLatitud.getText()));
-        sucursal.setLongitud(Double.parseDouble(txtLongitud.getText()));
-        sucursal.setEstatus(1);
+        producto.setNombre(txtNombre.getText());
+        producto.setMarca(txtMarca.getText());
+        producto.setPrecioUso(Float.parseFloat(txtPrecioUso.getText()));
+        producto.setEstatus(1);
 
-        return sucursal;
+        return producto;
     }
-
 }

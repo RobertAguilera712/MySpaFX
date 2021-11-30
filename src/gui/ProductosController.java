@@ -1,20 +1,20 @@
 package gui;
 
 import com.jfoenix.controls.JFXButton;
+import java.net.URL;
+import java.util.ResourceBundle;
+import javafx.fxml.Initializable;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextField;
 import gui.Alerts.AlertIcon;
 import gui.Alerts.ConfirmationAlert;
 import gui.Alerts.WaitAlert;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -22,11 +22,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import model.Item;
-import model.Sucursal;
-import rest.Rest;
 import utils.Utils;
+import model.Producto;
+import rest.Rest;
 
-public class SucursalesController implements Initializable {
+public class ProductosController implements Initializable {
 
     @FXML
     private JFXComboBox<Item> cmbBusqueda;
@@ -38,7 +38,7 @@ public class SucursalesController implements Initializable {
     private JFXComboBox<Item> cmbEstatus;
 
     @FXML
-    private TableView<Sucursal> tablaSucursales;
+    private TableView<Producto> tablaProductos;
 
     @FXML
     private TableColumn<?, ?> columnId;
@@ -47,33 +47,25 @@ public class SucursalesController implements Initializable {
     private TableColumn<?, ?> columnNombre;
 
     @FXML
-    private TableColumn<?, ?> columnDomicilio;
+    private TableColumn<?, ?> columnMarca;
 
     @FXML
-    private TableColumn<?, ?> columnLatidud;
-
-    @FXML
-    private TableColumn<?, ?> columnLogitud;
-
-    @FXML
-    private TableColumn<?, ?> columnEstatus;
+    private TableColumn<?, ?> columnPrecioUso;
 
     @FXML
     private TableColumn<?, ?> columnAcciones;
 
     private FXMLLoader loader;
-    private SucursalesFormController formController;
-
-    private final static Item filtrosBusqueda[] = {new Item("ID", "idSucursal"), new Item("Nombre", "nombre"), new Item("Domicilio", "domicilio"), new Item("Latitud", "latitud"), new Item("Longitud", "longitud")};
+    private ProductosFormController formController;
+    
+    private final static Item filtrosBusqueda[] = {new Item("ID", "idProducto"), new Item("Nombre", "nombre"), new Item("Marca", "marca"), new Item("Precio", "precioUso")};
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         columnId.setCellValueFactory(new PropertyValueFactory<>("id"));
         columnNombre.setCellValueFactory(new PropertyValueFactory<>("nombre"));
-        columnDomicilio.setCellValueFactory(new PropertyValueFactory<>("domicilio"));
-        columnLatidud.setCellValueFactory(new PropertyValueFactory<>("latitud"));
-        columnLogitud.setCellValueFactory(new PropertyValueFactory<>("longitud"));
-        columnEstatus.setCellValueFactory(new PropertyValueFactory<>("estatus"));
+        columnMarca.setCellValueFactory(new PropertyValueFactory<>("marca"));
+        columnPrecioUso.setCellValueFactory(new PropertyValueFactory<>("precioUso"));
         columnAcciones.setCellValueFactory(new PropertyValueFactory<>("acciones"));
 
         cmbBusqueda.getItems().setAll(filtrosBusqueda);
@@ -102,35 +94,34 @@ public class SucursalesController implements Initializable {
 
         llenarTabla();
     }
-
+    
     private void llenarTabla() {
         try {
             String estatus = cmbEstatus.getValue().getValor();
-            Sucursal sucursales[] = Rest.obtenerRegistros("branch", estatus, Sucursal[].class);
-            tablaSucursales.getItems().setAll(sucursales);
+            Producto productos[] = Rest.obtenerRegistros("product", estatus, Producto[].class);
+            tablaProductos.getItems().setAll(productos);
             ponerAcciones();
         } catch (Exception e) {
             System.out.println(e.toString());
         }
     }
-
+    
     private void buscar() {
         try {
             String estatus = cmbEstatus.getValue().getValor();
             String filtroBusqueda = cmbBusqueda.getValue().getValor();
             String consulta = txtBusqueda.getText().trim();
             String filtro = String.format("%s LIKE \"%%25%s%%25\"", filtroBusqueda, consulta);
-            Sucursal sucursales[] = Rest.buscar("branch", estatus, filtro, Sucursal[].class);
-            tablaSucursales.getItems().setAll(sucursales);
+            Producto productos[] = Rest.buscar("product", estatus, filtro, Producto[].class);
+            tablaProductos.getItems().setAll(productos);
             ponerAcciones();
         } catch (Exception e) {
             System.out.println(e.toString());
         }
-
     }
-
+    
     private void ponerAcciones() {
-        tablaSucursales.getItems().forEach(e -> {
+        tablaProductos.getItems().forEach(e -> {
             // Modificar
             ((JFXButton) e.getAcciones().getChildren().get(0)).setOnAction(event -> {
                 modificar(e, event);
@@ -142,16 +133,16 @@ public class SucursalesController implements Initializable {
             });
         });
     }
-
-    private void modificar(Sucursal sucursal, ActionEvent e) {
+    
+    private void modificar(Producto producto, ActionEvent e) {
         try {
             Scene currentScene = Utils.getCurrentScene(e);
             ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
-            loader = new FXMLLoader(getClass().getResource("SucursalesForm.fxml"));
+            loader = new FXMLLoader(getClass().getResource("ProductosForm.fxml"));
             Node nodo;
             nodo = loader.load();
             formController = loader.getController();
-            formController.setSucursal(sucursal);
+            formController.setProducto(producto);
             mainContainer.setContent(nodo);
         } catch (IOException ex) {
             Logger.getLogger(EmpleadosController.class.getName()).log(Level.SEVERE, null, ex);
@@ -173,7 +164,7 @@ public class SucursalesController implements Initializable {
         });
 
         alert.setConfirmationButtonAction(event -> {
-            Rest.eliminar("branch", id);
+            Rest.eliminar("product", id);
             llenarTabla();
             WaitAlert waitAlert = new WaitAlert(AlertIcon.SUCCESS, Utils.getCurrentWindow(e));
             waitAlert.setTitle("Registro eliminado");
@@ -188,7 +179,7 @@ public class SucursalesController implements Initializable {
     void agregar(ActionEvent event) throws IOException {
         Scene currentScene = Utils.getCurrentScene(event);
         ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
-        Node nodo = FXMLLoader.load(getClass().getResource("SucursalesForm.fxml"));
+        Node nodo = FXMLLoader.load(getClass().getResource("ProductosForm.fxml"));
         mainContainer.setContent(nodo);
     }
 

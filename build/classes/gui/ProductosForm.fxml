@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="443.0" prefWidth="846.0" spacing="20.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProductosFormController">
+   <children>
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+         <children>
+            <Label styleClass="h1" text="Agregar producto" />
+         </children>
+      </HBox>
+      <FlowPane alignment="CENTER" columnHalignment="CENTER" hgap="20.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" vgap="40.0">
+         <children>
+            <JFXTextField fx:id="txtNombre" promptText="Nombre" styleClass="input" />
+            <JFXTextField fx:id="txtMarca" layoutX="327.0" layoutY="10.0" promptText="Marca" styleClass="input" />
+            <JFXTextField fx:id="txtPrecioUso" layoutX="443.0" layoutY="10.0" promptText="Precio" styleClass="input" />
+         </children>
+         <padding>
+            <Insets left="20.0" right="20.0" />
+         </padding>
+      </FlowPane>
+      <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" spacing="20.0" VBox.vgrow="ALWAYS">
+         <children>
+            <JFXButton onAction="#guardar" text="Guardar">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-primary" />
+               </styleClass>
+            </JFXButton>
+            <JFXButton layoutX="333.0" layoutY="10.0" onAction="#regresar" text="Regresar">
+               <styleClass>
+                  <String fx:value="btn" />
+                  <String fx:value="btn-danger" />
+               </styleClass>
+            </JFXButton>
+         </children>
+      </HBox>
+   </children>
+   <stylesheets>
+      <URL value="@styles/icons.css" />
+      <URL value="@styles/styles.css" />
+   </stylesheets>
+</VBox>

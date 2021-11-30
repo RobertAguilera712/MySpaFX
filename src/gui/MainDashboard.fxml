@@ -20,200 +20,153 @@
 <?import javafx.scene.shape.Rectangle?>
 
 <GridPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="896.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainDashboardController">
-  <columnConstraints>
-    <ColumnConstraints fx:id="dashboard" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="710.0" />
-  </columnConstraints>
-  <rowConstraints>
-    <RowConstraints minHeight="10.0" vgrow="NEVER" />
-    <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="370.0" vgrow="SOMETIMES" />
-      <RowConstraints />
-  </rowConstraints>
-   <children>
-      <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="432.0" prefWidth="95.0" spacing="20.0" styleClass="bg-olive" GridPane.rowSpan="2">
-         <GridPane.margin>
-            <Insets />
-         </GridPane.margin>
-         <padding>
-            <Insets top="20.0" />
-         </padding>
-         <children>
-            <HBox layoutX="10.0" layoutY="30.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
-               <children>
-                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="active" visible="false" width="5.0" />
-                  <Button mnemonicParsing="false" onAction="#switchModule">
-                     <styleClass>
+    <columnConstraints>
+        <ColumnConstraints fx:id="dashboard" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
+        <ColumnConstraints hgrow="SOMETIMES" maxWidth="1.7976931348623157E308" minWidth="10.0" prefWidth="710.0" />
+    </columnConstraints>
+    <rowConstraints>
+        <RowConstraints minHeight="10.0" vgrow="NEVER" />
+        <RowConstraints maxHeight="1.7976931348623157E308" minHeight="0.0" prefHeight="370.0" vgrow="SOMETIMES" />
+        <RowConstraints />
+    </rowConstraints>
+    <children>
+        <VBox alignment="TOP_CENTER" maxWidth="1.7976931348623157E308" prefHeight="432.0" prefWidth="95.0" spacing="20.0" styleClass="bg-olive" GridPane.rowSpan="2">
+            <GridPane.margin>
+                <Insets />
+            </GridPane.margin>
+            <padding>
+                <Insets top="20.0" />
+            </padding>
+            <children>
+                <HBox layoutX="10.0" layoutY="30.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
+                    <children>
+                        <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="active" visible="false" width="5.0" />
+                        <Button mnemonicParsing="false" onAction="#switchModule">
+                            <styleClass>
+                                <String fx:value="icon" />
+                                <String fx:value="spa" />
+                            </styleClass>
+                        </Button>
+                        <Label styleClass="text-white" text="MySPA">
+                            <HBox.margin>
+                                <Insets left="5.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="75.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
+                    <children>
+                        <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
+                        <Button mnemonicParsing="false" onAction="#switchModule">
+                            <styleClass>
+                                <String fx:value="icon" />
+                                <String fx:value="sucursales" />
+                            </styleClass>
+                        </Button>
+                        <Label styleClass="text-white" text="Sucursales">
+                            <HBox.margin>
+                                <Insets left="5.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="75.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
+                    <children>
+                        <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
+                        <Button mnemonicParsing="false" onAction="#switchModule">
+                            <styleClass>
+                                <String fx:value="icon" />
+                                <String fx:value="empleados" />
+                            </styleClass>
+                        </Button>
+                        <Label styleClass="text-white" text="Empleados">
+                            <HBox.margin>
+                                <Insets left="5.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="120.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
+                    <children>
+                        <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
+                        <Button mnemonicParsing="false" onAction="#switchModule">
+                            <styleClass>
+                                <String fx:value="icon" />
+                                <String fx:value="clientes" />
+                            </styleClass>
+                        </Button>
+                        <Label styleClass="text-white" text="Clientes">
+                            <HBox.margin>
+                                <Insets left="5.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="165.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
+                    <children>
+                        <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
+                        <Button mnemonicParsing="false" onAction="#switchModule">
+                            <styleClass>
+                                <String fx:value="icon" />
+                                <String fx:value="productos" />
+                            </styleClass>
+                        </Button>
+                        <Label styleClass="text-white" text="Productos">
+                            <HBox.margin>
+                                <Insets left="5.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+                <HBox layoutX="10.0" layoutY="300.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
+                    <children>
+                        <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
+                        <Button mnemonicParsing="false" onAction="#switchModule">
+                            <styleClass>
+                                <String fx:value="icon" />
+                                <String fx:value="salas" />
+                            </styleClass>
+                        </Button>
+                        <Label styleClass="text-white" text="Salas">
+                            <HBox.margin>
+                                <Insets left="5.0" />
+                            </HBox.margin>
+                        </Label>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
+        <AnchorPane prefHeight="61.0" prefWidth="662.0" styleClass="bg-cultured" GridPane.columnIndex="1">
+            <children>
+                <Button fx:id="btnMenu" layoutX="23.0" layoutY="21.0" mnemonicParsing="false" onAction="#toggleDashboard" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="21.0">
+                    <styleClass>
                         <String fx:value="icon" />
-                        <String fx:value="spa" />
-                     </styleClass>
-                  </Button>
-                  <Label styleClass="text-white" text="MySPA">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="75.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
-               <children>
-                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
-                  <Button mnemonicParsing="false" onAction="#switchModule">
-                     <styleClass>
-                        <String fx:value="icon" />
-                        <String fx:value="sucursales" />
-                     </styleClass>
-                  </Button>
-                  <Label styleClass="text-white" text="Sucursales">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="75.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
-               <children>
-                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
-                  <Button mnemonicParsing="false" onAction="#switchModule">
-                     <styleClass>
-                        <String fx:value="icon" />
-                        <String fx:value="empleados" />
-                     </styleClass>
-                  </Button>
-                  <Label styleClass="text-white" text="Empleados">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="120.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
-               <children>
-                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
-                  <Button mnemonicParsing="false" onAction="#switchModule">
-                     <styleClass>
-                        <String fx:value="icon" />
-                        <String fx:value="clientes" />
-                     </styleClass>
-                  </Button>
-                  <Label styleClass="text-white" text="Clientes">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="165.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
-               <children>
-                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
-                  <Button mnemonicParsing="false" onAction="#switchModule">
-                     <styleClass>
-                        <String fx:value="icon" />
-                        <String fx:value="productos" />
-                     </styleClass>
-                  </Button>
-                  <Label styleClass="text-white" text="Productos">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="210.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
-               <children>
-                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
-                  <Button mnemonicParsing="false" onAction="#switchModule">
-                     <styleClass>
-                        <String fx:value="icon" />
-                        <String fx:value="tratamientos" />
-                     </styleClass>
-                  </Button>
-                  <Label styleClass="text-white" text="Tratamientos">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="255.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
-               <children>
-                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
-                  <Button mnemonicParsing="false" onAction="#switchModule">
-                     <styleClass>
-                        <String fx:value="icon" />
-                        <String fx:value="servicios" />
-                     </styleClass>
-                  </Button>
-                  <Label styleClass="text-white" text="Servicios">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="300.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
-               <children>
-                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
-                  <Button mnemonicParsing="false" onAction="#switchModule">
-                     <styleClass>
-                        <String fx:value="icon" />
-                        <String fx:value="salas" />
-                     </styleClass>
-                  </Button>
-                  <Label styleClass="text-white" text="Salas">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-            <HBox layoutX="10.0" layoutY="345.0" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="40.0" spacing="10.0">
-               <children>
-                  <Rectangle fill="DODGERBLUE" height="25.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" style="-fx-fill: -fx-color-cultured;" styleClass="unactive" visible="false" width="5.0" />
-                  <Button mnemonicParsing="false" onAction="#switchModule">
-                     <styleClass>
-                        <String fx:value="icon" />
-                        <String fx:value="reservaciones" />
-                     </styleClass>
-                  </Button>
-                  <Label styleClass="text-white" text="Reservaciones">
-                     <HBox.margin>
-                        <Insets left="5.0" />
-                     </HBox.margin>
-                  </Label>
-               </children>
-            </HBox>
-         </children></VBox>
-      <AnchorPane prefHeight="61.0" prefWidth="662.0" styleClass="bg-cultured" GridPane.columnIndex="1">
-         <children>
-            <Button fx:id="btnMenu" layoutX="23.0" layoutY="21.0" mnemonicParsing="false" onAction="#toggleDashboard" AnchorPane.leftAnchor="23.0" AnchorPane.topAnchor="21.0">
-               <styleClass>
-                  <String fx:value="icon" />
-                  <String fx:value="menu" />
-                  <String fx:value="bg-olive" />
-               </styleClass>
-               <cursor>
-                  <Cursor fx:constant="HAND" />
-               </cursor>
-            </Button>
-            <MenuButton layoutX="586.0" mnemonicParsing="false" style="-fx-padding: 0; -fx-background-color: transparent;" AnchorPane.rightAnchor="20.0">
-              <items>
-                <MenuItem mnemonicParsing="false" text="Ver mis datos" />
-                <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir" />
-              </items>
-               <graphic>
-                  <ImageView fx:id="imgUsuario" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@img/user.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </MenuButton>
-         </children>
-      </AnchorPane>
-      <ScrollPane fx:id="mainContainer" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-   </children>
-   <stylesheets>
-      <URL value="@styles/icons.css" />
-      <URL value="@styles/styles.css" />
-   </stylesheets>
+                        <String fx:value="menu" />
+                        <String fx:value="bg-olive" />
+                    </styleClass>
+                    <cursor>
+                        <Cursor fx:constant="HAND" />
+                    </cursor>
+                </Button>
+                <MenuButton layoutX="586.0" mnemonicParsing="false" style="-fx-padding: 0; -fx-background-color: transparent;" AnchorPane.rightAnchor="20.0">
+                    <items>
+                        <MenuItem mnemonicParsing="false" text="Ver mis datos" />
+                        <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir" />
+                    </items>
+                    <graphic>
+                        <ImageView fx:id="imgUsuario" fitHeight="50.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                            <image>
+                                <Image url="@img/user.png" />
+                            </image>
+                        </ImageView>
+                    </graphic>
+                </MenuButton>
+            </children>
+        </AnchorPane>
+        <ScrollPane fx:id="mainContainer" fitToHeight="true" fitToWidth="true" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" style="-fx-background-color: transparent;" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    </children>
+    <stylesheets>
+        <URL value="@styles/icons.css" />
+        <URL value="@styles/styles.css" />
+    </stylesheets>
 </GridPane>
