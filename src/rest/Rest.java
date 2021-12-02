@@ -45,6 +45,8 @@ public class Rest {
 	}
 
 	public static Empleado login(String usuario, String password){
+		// URL http://localhost:8080/MySpa/api
+		// PATH http://localhost:8080/MySpa/api/employee/login
 		target = CLIENT.target(URL).path("employee").path("login");
 
 		Form form = new Form();

@@ -16,7 +16,7 @@ public class Checar {
 	  * Este mensaje se usará con el metódo String.format donde el placeholder
 	  * para el string "%s" será remplazado con el promtText del input en cuestión.
 	  */
-	private static final String MENSAJE = "El campo %s no ha sido llando\n";
+	private static final String MENSAJE = "El campo %s no ha sido llenado\n";
 
 	/**
 	 * Metodo que comprueba si un TextInputControl ha sido llenado por el usuario
