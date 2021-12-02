@@ -150,7 +150,7 @@
                 </Button>
                 <MenuButton layoutX="586.0" mnemonicParsing="false" style="-fx-padding: 0; -fx-background-color: transparent;" AnchorPane.rightAnchor="20.0">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Ver mis datos" />
+                        <MenuItem mnemonicParsing="false" onAction="#verDatos" text="Ver mis datos" />
                         <MenuItem mnemonicParsing="false" onAction="#salir" text="Salir" />
                     </items>
                     <graphic>

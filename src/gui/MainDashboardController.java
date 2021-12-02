@@ -94,4 +94,12 @@ public class MainDashboardController implements Initializable {
 		}
 	}
 
+	@FXML
+	void verDatos(ActionEvent event) throws IOException{
+		Scene currentScene = mainContainer.getScene();
+		ScrollPane mainContainer = (ScrollPane) currentScene.lookup("#mainContainer");
+		Node nodo = FXMLLoader.load(getClass().getResource("DatosEmpleado.fxml"));
+		mainContainer.setContent(nodo);
+	}
+
 }
